@@ -19,6 +19,7 @@
 
 # include "cub3D.h"
 # include "../libft/libft.h"
+#define BUFFER_SIZE 15
 /*
 ** ----------------------- < static structure > -----------------------------
 */

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC +=	ft_memset.c		\
+SRC =	ft_memset.c		\
 		ft_bzero.c		\
 		ft_memcpy.c		\
 		ft_memccpy.c	\
@@ -104,7 +104,7 @@ B_SRC =	ft_lstadd_back_bonus.c	\
 		ft_putendl_fd.c	\
 		ft_putnbr_fd.c	\
 
-OBJ = $(B_SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
 
 B_OBJ = $(B_SRC:.c=.o)
 
@@ -116,7 +116,7 @@ CC = gcc
 
 RM = rm -f
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = #-Wall -Werror -Wextra
 
 all: $(NAME)
 
