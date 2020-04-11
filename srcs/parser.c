@@ -14,11 +14,11 @@
 
 int		parser(char *path_to_conf, t_map *file)
 {
-	int		map_fd;
-	int		line_n;
-	char	*line;
-	int		gnl;
-	char	**conf_file;
+	int				map_fd;
+	int				line_n;
+	char			*line;
+	int				gnl;
+	char			**conf_file;
 
 	conf_file = NULL;
 	line = NULL;
@@ -37,7 +37,7 @@ int		parser(char *path_to_conf, t_map *file)
 		line_n++;
 	}
 	set_struct(file);
-	return (ft_parse_map(conf_file, line_n, file));
+	return (ft_parse_infos(conf_file, line_n, file));
 }
 
 void	free_dtab(char **dtab, int size)
@@ -80,9 +80,9 @@ char	**one_more_line(char **tab, char *to_add, int index)
 	return (return_tab);
 }
 
-int		ft_parse_map(char **conf_file, int size, t_map *file)
+int		ft_parse_infos(char **conf_file, int size, t_map *file)
 {
-	static t_parse		c[] = {{"R ", &add_win}, {"NO", &add_north},
+	static t_parse	c[] = {{"R ", &add_win}, {"NO", &add_north},
 	{"SO", &add_south}, {"WE", &add_west}, {"EA", &add_east},
 	{"S ", &add_sprite}, {"F ",&add_floor}, {"C ", &add_ceiling}};
 	int				i;
@@ -90,7 +90,7 @@ int		ft_parse_map(char **conf_file, int size, t_map *file)
 	int				ret;
 
 	i = 0;
-	while (i < size)
+	while (i < size && !(ft_fullfilled(file)))
 	{
 		j = 0;
 		while (j < 8 && (ft_memcmp(c[j].id, conf_file[i], 2)))
@@ -103,6 +103,5 @@ int		ft_parse_map(char **conf_file, int size, t_map *file)
 			}
 		i++;
 	}
-	free_dtab(conf_file, size - 1);
-	return (GOOD_OUT);
+	return (ft_parse_map(conf_file, size, file));
 }
