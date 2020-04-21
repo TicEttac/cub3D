@@ -53,7 +53,7 @@ typedef struct	s_parse
 
 int		parser(char *str, t_map *file);
 int		ft_parse_infos(char **conf_file, int size, t_map *file);
-int		ft_parse_map(char **conf_file, int size, t_map *file);
+int		ft_parse_map(char **conf_file, int size, int i, t_map *file);
 int		error_flag(char *str);
 int		ft_fullfilled(t_map *file);
 char	*add_path(char *line, char *id);

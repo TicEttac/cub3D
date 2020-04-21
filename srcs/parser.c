@@ -103,5 +103,5 @@ int		ft_parse_infos(char **conf_file, int size, t_map *file)
 			}
 		i++;
 	}
-	return (ft_parse_map(conf_file, size, file));
+	return (ft_parse_map(conf_file, size, i, file));
 }
