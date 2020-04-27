@@ -10,18 +10,48 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 	{
 		if (index >= size)
 		{
-			free_dtab(conf_file, size - 1);
+			free_dtab(conf_file, size);
 			return (error_flag("No map in configuration file.\n"));
 		}
 		i = conf_file[index][i] == '\0' ? 0 : i + 1;
 		i == 0 ? index++ : 0;
 	}
-	i = 0;
+	if (!(file->map = malloc(sizeof(t_tile *) * (size - index))))
+	{
+		free_dtab(conf_file, size);
+		return (error_flag("Malloc error.\n"));
+	}
 	while (index < size)
 	{
-		if (!(file->map = malloc(sizeof(*t_tile) * size - index)))
+		if (!(file->map[index] = malloc(sizeof(t_tile) * ft_strlen(conf_file[index] + 1))))
+		{
+			free_dtab(conf_file, size);
+			return (error_flag("Malloc error.\n"));
+		}
+		i = 0;
+		while (conf_file[index][i] != '\0')
+		{
+			if (conf_file[index][i] != '0' && conf_file[index][i] != '1')
+			{
+				file->map[index][i].tile = '0';
+				file->map[index][i].content = conf_file[index][i];
+			}
+			else
+			{
+				file->map[index][i].tile = conf_file[index][i];
+				file->map[index][i].content = '0';
+			}
+			i++;
+		}
+		file->map[index][i].tile = '\0';
+		file->map[index][i].content = '\0';
+		index++;
 	}
-	free_dtab(conf_file, size);
+	free_dtab(conf_file, size - 1);
+	if (!(file->map[index] = malloc(sizeof(t_tile))))
+		return (error_flag("Malloc error.\n"));
+	file->map[index][0].tile = '\0';
+	file->map[index][0].content = '\0';
 	return (GOOD_OUT);
 }
 
