@@ -8,15 +8,7 @@ int main(int ac, char **av)
 	int i;
 
 	(void)ac;
-	printf("%d\n", parser(av[1], &file));
-	printf("win x[%d] y[%d]\n", file.win[0], file.win[1]);
-	printf("north path [%s]\n", file.n_path);
-	printf("south path [%s]\n", file.so_path);
-	printf("east path [%s]\n", file.ea_path);
-	printf("west path [%s]\n", file.we_path);
-	printf("sprite path [%s]\n", file.sp_path);
-	printf("floor color R[%d] G[%d] B[%d]\n", file.f_color[0], file.f_color[1], file.f_color[2]);
-	printf("ceiling color R[%d] G[%d] B[%d]\n", file.c_color[0], file.c_color[1], file.c_color[2]);
+	parser(av[1], &file);
 	while (file.map[index][0].tile != '\0'){
 		i = 0;
 		while (file.map[index][i].tile != '\0'){

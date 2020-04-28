@@ -4,8 +4,9 @@
 int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 {
 	int		i;
+	int		i_map;
 
-	i = 0;
+	i_map = 0;
 	while (conf_file[index][i] != '1' && conf_file[index][i] != '0')
 	{
 		if (index >= size)
@@ -33,25 +34,28 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 		{
 			if (conf_file[index][i] != '0' && conf_file[index][i] != '1')
 			{
-				file->map[index][i].tile = '0';
-				file->map[index][i].content = conf_file[index][i];
+				printf("i_map = %d\ni = %d\n", i_map, i);
+				file->map[i_map][i].tile = '0';
+				file->map[i_map][i].content = conf_file[index][i];
 			}
 			else
 			{
-				file->map[index][i].tile = conf_file[index][i];
-				file->map[index][i].content = '0';
+				file->map[i_map][i].tile = conf_file[index][i];
+				file->map[i_map][i].content = '0';
 			}
 			i++;
 		}
-		file->map[index][i].tile = '\0';
-		file->map[index][i].content = '\0';
+		file->map[i_map][i].tile = '\0';
+		file->map[i_map][i].content = '\0';
 		index++;
+		i_map++;
 	}
 	free_dtab(conf_file, size - 1);
 	if (!(file->map[index] = malloc(sizeof(t_tile))))
 		return (error_flag("Malloc error.\n"));
-	file->map[index][0].tile = '\0';
-	file->map[index][0].content = '\0';
+	file->map[i_map][0].tile = '\0';
+	file->map[i_map][0].content = '\0';
+	printf("\n%c\n\n", file->map[0][0].tile);
 	return (GOOD_OUT);
 }
 
