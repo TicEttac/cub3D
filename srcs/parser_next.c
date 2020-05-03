@@ -24,7 +24,7 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 	}
 	while (index < size)
 	{
-		if (!(file->map[index] = malloc(sizeof(t_tile) * ft_strlen(conf_file[index] + 1))))
+		if (!(file->map[i_map] = malloc(sizeof(t_tile) * ft_strlen(conf_file[index]))))
 		{
 			free_dtab(conf_file, size);
 			return (error_flag("Malloc error.\n"));
@@ -32,16 +32,20 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 		i = 0;
 		while (conf_file[index][i] != '\0')
 		{
-			if (conf_file[index][i] != '0' && conf_file[index][i] != '1')
+			if (ft_strchr("NSWE2 ", (int)conf_file[index][i]))
 			{
-				printf("i_map = %d\ni = %d\n", i_map, i);
 				file->map[i_map][i].tile = '0';
 				file->map[i_map][i].content = conf_file[index][i];
 			}
-			else
+			else if (ft_strchr("10", (int)conf_file[index][i]))
 			{
 				file->map[i_map][i].tile = conf_file[index][i];
 				file->map[i_map][i].content = '0';
+			}
+			else
+			{
+				free_dtab(conf_file, size);
+				return (error_flag("Erroneous map.\n"));
 			}
 			i++;
 		}
@@ -51,11 +55,10 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 		i_map++;
 	}
 	free_dtab(conf_file, size - 1);
-	if (!(file->map[index] = malloc(sizeof(t_tile))))
+	if (!(file->map[i_map] = malloc(sizeof(t_tile))))
 		return (error_flag("Malloc error.\n"));
 	file->map[i_map][0].tile = '\0';
 	file->map[i_map][0].content = '\0';
-	printf("\n%c\n\n", file->map[0][0].tile);
 	return (GOOD_OUT);
 }
 
