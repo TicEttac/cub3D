@@ -18,6 +18,12 @@ int main(int ac, char **av)
 		printf("\n");
 		index++;
 	}
+	i = 0;
+	while (index >= 0){
+		free(file.map[index]);
+		index--;
+	}
+	free(file.map);
 	free(file.n_path);
 	free(file.so_path);
 	free(file.ea_path);
