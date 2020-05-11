@@ -37,6 +37,7 @@ typedef struct	s_map
 	int		win[2];
 	int		f_color[3];
 	int		c_color[3];
+	int		start[2];
 	char	*n_path;
 	char	*so_path;
 	char	*we_path;
@@ -54,6 +55,7 @@ typedef struct	s_parse
 int		parser(char *str, t_map *file);
 int		ft_parse_infos(char **conf_file, int size, t_map *file);
 int		ft_parse_map(char **conf_file, int size, int i, t_map *file);
+int		map_checking(t_tile **map, int entry_x, int entry_y);
 int		error_flag(char *str);
 int		ft_fullfilled(t_map *file);
 char	*add_path(char *line, char *id);

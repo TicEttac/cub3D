@@ -90,10 +90,10 @@ int		ft_parse_infos(char **conf_file, int size, t_map *file)
 	int				ret;
 
 	i = 0;
-	while (i < size && !(ft_fullfilled(file)))
+	while (!(ft_fullfilled(file)))
 	{
 		j = 0;
-		while (j < 8 && (ft_memcmp(c[j].id, conf_file[i], 2)))
+		while (j < 7 && (ft_memcmp(c[j].id, conf_file[i], 2)))
 			j++;
 		if (!(ft_memcmp(c[j].id, conf_file[i], 2)))
 			if (c[j].func(conf_file[i], file, c[j].id) == BAD_OUT)

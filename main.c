@@ -8,7 +8,8 @@ int main(int ac, char **av)
 	int i;
 
 	(void)ac;
-	parser(av[1], &file);
+	if (!parser(av[1], &file))
+		return (0);
 	while (file.map[index][0].tile != '\0'){
 		i = 0;
 		while (file.map[index][i].tile != '\0'){
