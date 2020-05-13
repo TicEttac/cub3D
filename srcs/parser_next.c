@@ -1,4 +1,4 @@
-#include "../includes/cub3D.h"
+#include "cub3D.h"
 
 int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 {
@@ -110,12 +110,12 @@ void	print_map(t_tile **map)
 	printf("\n");
 }
 
-int		map_checking(t_tile **map, int x, int y)
+/*int		map_checking(t_tile **map, int x, int y)
 {
-	char	card[4];
+	char		card[4];
 	int		next_x;
 	int		next_y;
-	int		i;
+	size_t		i;
 
 	i = 0;
 	if (x <= 0 || y <= 0 || map[x][y + 1].tile == '\0' || map[x + 1][0].tile == '\0')
@@ -146,4 +146,5 @@ int		map_checking(t_tile **map, int x, int y)
 		i++;
 	}
 	return (GOOD_OUT);
-}
+}*/
+

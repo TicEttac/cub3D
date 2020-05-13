@@ -1,0 +1,13 @@
+A coder :
+	fonction recursive test map
+
+Erreurs :
+	tabulation entre coordonnées de la window
+	caractères incorrects après le nom de la ligne (sur la map)
+	SEGV sur parametres vides
+	SEGV si espece devant le parametre (sur la map)
+	voir map : incorrect.cub (/n manquant)
+	SEGV si paramatre après la map
+
+Minime :
+	makefile -I et retirer path des fichiers d'include dans les .c

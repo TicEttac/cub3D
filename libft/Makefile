@@ -108,8 +108,6 @@ OBJ = $(SRC:.c=.o)
 
 B_OBJ = $(B_SRC:.c=.o)
 
-INC = libft.h
-
 NAME = libft.a
 
 CC = gcc
@@ -121,7 +119,7 @@ FLAGS = #-Wall -Werror -Wextra
 all: $(NAME)
 
 %.o:%.c
-			$(CC) -o $@ $(FLAGS) -I $(INC) -c $<
+			$(CC) -o $@ $(FLAGS) -c $<
 
 bonus:clean $(B_OBJ)
 			@ar rcs $(NAME) $(B_OBJ)

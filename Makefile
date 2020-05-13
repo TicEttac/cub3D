@@ -23,7 +23,7 @@ GNL_SRCS =	get_next_line.c			\
 OBJS = $(addprefix srcs/, $(SRCS))
 GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 
-CFLAGS = -g3 -fsanitize=leak -o #-Wall -Werror -Wextra
+CFLAGS = -g3 -fsanitize=leak -I includes -o #-Wall -Werror -Wextra
 CC = gcc
 LIB = libft/libft.a
 
