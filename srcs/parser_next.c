@@ -110,41 +110,16 @@ void	print_map(t_tile **map)
 	printf("\n");
 }
 
-/*int		map_checking(t_tile **map, int x, int y)
+int	map_checking(t_tile **map, int x, int y)
 {
-	char		card[4];
-	int		next_x;
-	int		next_y;
-	size_t		i;
-
-	i = 0;
-	if (x <= 0 || y <= 0 || map[x][y + 1].tile == '\0' || map[x + 1][0].tile == '\0')
+	if (x < 0 || y < 0 || map[x][y].tile == '\0' || map[x][0].tile == '\0')
 		return (error_flag("Open map.\n"));
-	map[x][y].tile = ' ';
-	card[0] = map[x - 1][y].tile;
-	card[1] = map[x + 1][y].tile;
-	card[2] = map[x][y - 1].tile;
-	card[3] = map[x][y + 1].tile;
-	while (i < 4)
+	if (map[x][y].tile == '0')
 	{
-		if (!ft_strchr("01 ", card[i]))
-		{
-			return (error_flag("Erroneous map.\n"));
-		}
-		if (card[i] == '0')
-		{
-			i == 0 ? next_x = x - 1 : 0;
-			i == 1 ? next_x = x + 1 : 0;
-			i == 2 ? next_y = y - 1 : 0;
-			i == 3 ? next_y = y + 1 : 0;
-			next_x == x - 1 || next_x == x + 1 ? next_y = y : 0;
-			next_y == y - 1 || next_y == y + 1 ? next_x = x : 0;
-			print_map(map);
-			if (!map_checking(map, next_x, next_y))
-				return (BAD_OUT);
-		}
-		i++;
+		map[x][y].tile = ' ';
+		if (!map_checking(map, x + 1, y) || !map_checking(map, x - 1, y) 
+					|| !map_checking(map, x, y + 1) || !map_checking(map, x, y - 1))
+			return (BAD_OUT);
 	}
 	return (GOOD_OUT);
-}*/
-
+}
