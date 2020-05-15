@@ -1,6 +1,3 @@
-A coder :
-	fonction recursive test map
-
 Erreurs :
 	tabulation entre coordonnées de la window
 	caractères incorrects après le nom de la ligne (sur la map)

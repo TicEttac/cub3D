@@ -8,14 +8,18 @@ int		add_win(char *line, t_map *file, char *id)
 	(void)id;
 	i = 0;
 	axis_switch = 0;
-	while (line[i] == 'R' || line[i] == ' ')
+	while (ft_strchr(" \tR", line[i]))
 		i++;
 	while (line[i] && axis_switch <= 1)
 	{
-		if ((line[i] > '9' || line[i] < '0') && line[i] != ' ')
+		if ((line[i] > '9' || line[i] < '0') && !ft_strchr(" \t", line[i]))
 			return (error_flag("Window size error.\n"));
-		if (line[i] == ' ')
+		if (line[i] == ' ' ||line[i] == '\t')
+		{
 			axis_switch++;
+			while (ft_strchr(" \t", line[i]))
+				i++;
+		}
 		else
 			file->win[axis_switch] = (file->win[axis_switch] * 10) + line[i] - 48;
 		i++;
