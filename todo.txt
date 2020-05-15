@@ -1,6 +1,6 @@
 Erreurs :
-	tabulation entre coordonnées de la window
 	caractères incorrects après le nom de la ligne (sur la map)
+		open les paths et stocker les fd's
 	SEGV sur parametres vides
 	SEGV si espece devant le parametre (sur la map)
 	voir map : incorrect.cub (/n manquant)
