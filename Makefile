@@ -16,6 +16,7 @@ SRCS =		add.c					\
 			add_redirect.c			\
 			parser.c				\
 			parser_next.c			\
+			main.c					\
 
 GNL_SRCS =	get_next_line.c			\
 			get_next_line_utils.c	\
@@ -31,7 +32,7 @@ all:	$(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ./libft all
-	@${CC} ${CFLAGS} ${NAME} ${GNL_OBJS} ${OBJS} ${LIB} main.c #&& printf "%-60b\r" "$(_GREEN)$(ECHO)$(_CYAN) Compilation $@"
+	@${CC} ${CFLAGS} ${NAME} ${GNL_OBJS} ${OBJS} ${LIB} #&& printf "%-60b\r" "$(_GREEN)$(ECHO)$(_CYAN) Compilation $@"
 
 clean:
 	@make -C libft clean
