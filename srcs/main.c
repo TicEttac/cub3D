@@ -25,10 +25,5 @@ int main(int ac, char **av)
 		index--;
 	}
 	free(file.map);
-	free(file.n_path);
-	free(file.so_path);
-	free(file.ea_path);
-	free(file.we_path);
-	free(file.sp_path);
 	return (0);
 }

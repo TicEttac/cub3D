@@ -92,9 +92,9 @@ void	set_struct(t_map *file)
 	file->c_color[0] = 0;
 	file->c_color[1] = 0;
 	file->c_color[2] = 0;
-	file->n_path = NULL;
-	file->so_path = NULL;
-	file->we_path = NULL;
-	file->ea_path = NULL;
-	file->sp_path = NULL;
+	file->n_path = 0;
+	file->so_path = 0;
+	file->we_path = 0;
+	file->ea_path = 0;
+	file->sp_path = 0;
 }

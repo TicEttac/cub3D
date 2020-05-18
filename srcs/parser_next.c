@@ -80,15 +80,15 @@ int		ft_fullfilled(t_map *file)
 		return (0);
 	if (!(file->c_color[0] || file->c_color[1] || file->c_color[2]))
 		return (0);
-	if (!file->n_path)
+	if (file->n_path == 0)
 		return (0);
-	if (!file->so_path)
+	if (file->so_path == 0)
 		return (0);
-	if (!file->ea_path)
+	if (file->ea_path == 0)
 		return (0);
-	if (!file->we_path)
+	if (file->we_path == 0)
 		return (0);
-	if (!file->sp_path)
+	if (file->sp_path == 0)
 		return (0);
 	return (1);
 }

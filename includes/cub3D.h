@@ -38,11 +38,11 @@ typedef struct	s_map
 	int		f_color[3];
 	int		c_color[3];
 	int		start[2];
-	char	*n_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
-	char	*sp_path;
+	int		n_path;
+	int		so_path;
+	int		we_path;
+	int		ea_path;
+	int		sp_path;
 	t_tile	**map;
 }				t_map;
 
