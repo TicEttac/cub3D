@@ -21,6 +21,9 @@ int main(int ac, char **av)
 		index++;
 	}
 	i = 0;
+	printf("\nwin x%d y%d\n", file.win[0], file.win[1]);
+	printf("f color r%d g%d b%d\n",file.f_color[0],file.f_color[1],file.f_color[2] );
+	printf("c color r%d g%d b%d\n",file.c_color[0],file.c_color[1],file.c_color[2] );
 	while (index >= 0){
 		free(file.map[index]);
 		index--;
