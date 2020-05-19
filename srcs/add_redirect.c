@@ -1,5 +1,5 @@
 
-#include "../includes/cub3D.h"
+#include "cub3D.h"
 
 int		add_north(char *line, t_map *file, char *id)
 {

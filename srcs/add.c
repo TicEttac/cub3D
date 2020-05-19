@@ -1,4 +1,4 @@
-#include "../includes/cub3D.h"
+#include "cub3D.h"
 
 int		add_win(char *line, t_map *file, char *id)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "cub3D.h"
 
 int		parser(char *path_to_conf, t_map *file)
 {
@@ -22,7 +22,7 @@ int		parser(char *path_to_conf, t_map *file)
 
 	conf_file = NULL;
 	line = NULL;
-	if (!(map_fd = open(path_to_conf, O_RDONLY)))
+	if ((map_fd = open(path_to_conf, O_RDONLY)) == -1)
 		return (error_flag("Wrong path to configuration file.\n"));
 	line_n = 0;
 	gnl = 1;

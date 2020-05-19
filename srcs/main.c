@@ -7,7 +7,8 @@ int main(int ac, char **av)
 	int index = 0;
 	int i;
 
-	(void)ac;
+	if (ac < 2)
+		return (error_flag("No configuration path.\n"));
 	if (!parser(av[1], &file))
 		return (0);
 	while (file.map[index][0].tile != '\0'){
