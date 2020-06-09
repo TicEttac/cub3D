@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/24 19:24:24 by nisauvig          #+#    #+#             */
+/*   Updated: 2020/05/24 19:24:42 by nisauvig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int		add_win(char *line, t_map *file, char *id)
@@ -24,7 +36,7 @@ int		add_win(char *line, t_map *file, char *id)
 			file->win[swich] = file->win[swich] * 10 + line[i] - 48;
 		i++;
 	}
-	if (swich < 2)
+	if (swich < 1)
 		return (error_flag("Not enough arguments on window size.\n"));
 	return (GOOD_OUT);
 }
@@ -62,7 +74,7 @@ int		add_floor(char *line, t_map *file, char *id)
 			file->f_color[swich] = (file->f_color[swich] * 10) + line[i] - 48;
 		i++;
 	}
-	if (swich < 3)
+	if (swich < 2)
 		return (error_flag("Not enough arguments on floor color.\n"));
 	return (GOOD_OUT);
 }
@@ -90,7 +102,7 @@ int		add_ceiling(char *line, t_map *file, char *id)
 			file->c_color[swich] = file->c_color[swich] * 10 + (line[i] - 48);
 		i++;
 	}
-	if (swich < 3)
+	if (swich < 2)
 		return (error_flag("Not enough arguments on ceiling color.\n"));
 	return (GOOD_OUT);
 }

@@ -6,7 +6,7 @@
 /*   By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:02:46 by nisauvig          #+#    #+#             */
-/*   Updated: 2020/03/12 17:54:15 by nisauvig         ###   ########.fr       */
+/*   Updated: 2020/05/24 19:29:24 by nisauvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		ft_parse_infos(char **conf_file, int size, t_map *file)
 {
 	static t_parse	c[] = {{"R ", &add_win}, {"NO", &add_north},
 	{"SO", &add_south}, {"WE", &add_west}, {"EA", &add_east},
-	{"S ", &add_sprite}, {"F ",&add_floor}, {"C ", &add_ceiling}};
+	{"S ", &add_sprite}, {"F ", &add_floor}, {"C ", &add_ceiling}};
 	int				i;
 	int				j;
 	int				ret;

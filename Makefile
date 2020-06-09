@@ -6,7 +6,7 @@
 #    By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/04 11:50:47 by nisauvig          #+#    #+#              #
-#    Updated: 2020/01/22 06:00:07 by nisauvig         ###   ########.fr        #
+#    Updated: 2020/06/06 19:13:18 by nisauvig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS =		add.c					\
 			parser.c				\
 			parser_next.c			\
 			main.c					\
+			mlx_start.c				\
 
 GNL_SRCS =	get_next_line.c			\
 			get_next_line_utils.c	\
@@ -24,9 +25,11 @@ GNL_SRCS =	get_next_line.c			\
 OBJS = $(addprefix srcs/, $(SRCS))
 GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 
-CFLAGS = -g3 -fsanitize=leak -I includes -o #-Wall -Werror -Wextra
+CFLAGS = -lft -lmlx - lbmp -lm -lbsd -lX11 -lXext -g3 -fsanitize=leak includes -o #-Wall -Werror -Wextra
 CC = gcc
-LIB = libft/libft.a
+LIB = 	libft/libft.a	\
+		libmlx.a		\
+		libmlx_Linux.a	\
 
 all:	$(NAME)
 

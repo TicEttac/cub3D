@@ -6,7 +6,7 @@
 /*   By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:06:20 by nisauvig          #+#    #+#             */
-/*   Updated: 2020/03/12 17:46:41 by nisauvig         ###   ########.fr       */
+/*   Updated: 2020/06/01 17:37:11 by nisauvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@
 # include <stdlib.h>
 # include <math.h>
 # include "../libft/libft.h"
+#include <X11/Xlib.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <X11/extensions/XShm.h>
 # include "get_next_line.h"
+# include "mlx.h"
+# include "mlx_int.h"
 
 # define GOOD_OUT 1
 # define BAD_OUT 0
@@ -71,5 +77,7 @@ int		add_west(char *line, t_map *file, char *id);
 int		add_sprite(char *line, t_map *file, char *id);
 int		add_floor(char *line, t_map *file, char *id);
 int		add_ceiling(char *line, t_map *file, char *id);
+
+int		mlx_start(t_map *file);
 
 #endif

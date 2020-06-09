@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_next.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/24 19:25:01 by nisauvig          #+#    #+#             */
+/*   Updated: 2020/05/24 19:27:16 by nisauvig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
@@ -27,7 +39,8 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 	}
 	while (index < size)
 	{
-		if (!(file->map[i_map] = malloc(sizeof(t_tile) * ft_strlen(conf_file[index]))))
+		if (!(file->map[i_map] = malloc(sizeof(t_tile)
+		* ft_strlen(conf_file[index]))))
 		{
 			free_dtab(conf_file, size);
 			return (error_flag("Malloc error.\n"));
@@ -64,7 +77,7 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 		index++;
 		i_map++;
 	}
-	free_dtab(conf_file, size - 1);
+	free_dtab(conf_file, size);
 	if (!(file->map[i_map] = malloc(sizeof(t_tile))))
 		return (error_flag("Malloc error.\n"));
 	file->map[i_map][0].tile = '\0';
@@ -95,12 +108,15 @@ int		ft_fullfilled(t_map *file)
 
 void	print_map(t_tile **map)
 {
-	int x = 0;
-	int y;
+	int		x;
+	int		y;
 
-	while (map[x][0].tile != '\0'){
+	x = 0;
+	while (map[x][0].tile != '\0')
+	{
 		y = 0;
-		while (map[x][y].tile != '\0'){
+		while (map[x][y].tile != '\0')
+		{
 			printf("%c", map[x][y].tile);
 			y++;
 		}
@@ -117,8 +133,8 @@ int	map_checking(t_tile **map, int x, int y)
 	if (map[x][y].tile == '0')
 	{
 		map[x][y].tile = ' ';
-		if (!map_checking(map, x + 1, y) || !map_checking(map, x - 1, y) 
-					|| !map_checking(map, x, y + 1) || !map_checking(map, x, y - 1))
+		if (!map_checking(map, x + 1, y) || !map_checking(map, x - 1, y)
+		|| !map_checking(map, x, y + 1) || !map_checking(map, x, y - 1))
 			return (BAD_OUT);
 	}
 	return (GOOD_OUT);

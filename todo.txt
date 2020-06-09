@@ -1,5 +1,8 @@
+pas encore fait :
+	error_map avec agruments variadiques (free tout)
+	error_map qui donne la ligne de l'erreur
+
 Erreurs :
-	SEGV si espece devant le parametre (sur la map)
 	voir map : incorrect.cub (/n manquant)
 	SEGV si paramatre après la map
 
