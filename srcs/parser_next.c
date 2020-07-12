@@ -16,12 +16,9 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 {
 	int		i;
 	int		i_map;
-	int		start[2];
 
 	i = 0;
 	i_map = 0;
-	start[0] = 0;
-	start[1] = 0;
 	while (conf_file[index][i] != '1' && conf_file[index][i] != '0')
 	{
 		if (index >= size)
@@ -32,15 +29,16 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 		i = conf_file[index][i] == '\0' ? 0 : i + 1;
 		i == 0 ? index++ : 0;
 	}
-	if (!(file->map = malloc(sizeof(t_tile *) * (size - index))))
+	if (!(file->map = malloc(sizeof(t_tile *) * (size - index + 1))))
 	{
 		free_dtab(conf_file, size);
 		return (error_flag("Malloc error.\n"));
 	}
+	file->mapH = size - index - 2; //"-2" = start at 1 and last line is \0
 	while (index < size)
 	{
 		if (!(file->map[i_map] = malloc(sizeof(t_tile)
-		* ft_strlen(conf_file[index]))))
+						* (ft_strlen(conf_file[index]) + 1))))
 		{
 			free_dtab(conf_file, size);
 			return (error_flag("Malloc error.\n"));
@@ -52,10 +50,10 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 			{
 				if (ft_strchr("NSWE", (int)conf_file[index][i]))
 				{
-					if (start[0] != 0)
+					if (file->start[0] != 0)
 						return (error_flag("Multiple entry points.\n"));
-					start[0] = i_map;
-					start[1] = i;
+					file->start[0] = i_map;
+					file->start[1] = i;
 				}
 				file->map[i_map][i].tile = '0';
 				file->map[i_map][i].content = conf_file[index][i];
@@ -72,17 +70,18 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 			}
 			i++;
 		}
+		file->mapW = i - 1 > file->mapW ? i - 1 : file->mapW;
 		file->map[i_map][i].tile = '\0';
 		file->map[i_map][i].content = '\0';
 		index++;
 		i_map++;
 	}
-	free_dtab(conf_file, size);
+	free_dtab(conf_file, size - 1);
 	if (!(file->map[i_map] = malloc(sizeof(t_tile))))
 		return (error_flag("Malloc error.\n"));
 	file->map[i_map][0].tile = '\0';
 	file->map[i_map][0].content = '\0';
-	return (map_checking(file->map, start[0], start[1]));
+	return (map_checking(file->map, file->start[0], file->start[1]));
 }
 
 int		ft_fullfilled(t_map *file)
@@ -126,7 +125,7 @@ void	print_map(t_tile **map)
 	printf("\n");
 }
 
-int	map_checking(t_tile **map, int x, int y)
+int		map_checking(t_tile **map, int x, int y)
 {
 	if (x < 0 || y < 0 || map[x][y].tile == '\0' || map[x][0].tile == '\0')
 		return (error_flag("Open map.\n"));

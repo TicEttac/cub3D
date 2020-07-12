@@ -13,30 +13,45 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdio.h>
+
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/uio.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
 # include "../libft/libft.h"
-#include <X11/Xlib.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-#include <X11/extensions/XShm.h>
 # include "get_next_line.h"
 # include "mlx.h"
 # include "mlx_int.h"
 
 # define GOOD_OUT 1
 # define BAD_OUT 0
+# define FOV 0.66
+
+typedef struct	s_point
+{
+	float	x;
+	float	y;
+}				t_point;
 
 typedef struct	s_tile
 {
 	char	tile;
 	char	content;
 }				t_tile;
+
+typedef struct	s_char
+{
+	float	x;
+	float	y;
+	float	dirX;
+	float	dirY;
+	t_tile	**map;
+}				t_char;
 
 typedef struct	s_map
 {
@@ -49,6 +64,8 @@ typedef struct	s_map
 	int		we_path;
 	int		ea_path;
 	int		sp_path;
+	int		mapH;
+	int		mapW;
 	t_tile	**map;
 }				t_map;
 

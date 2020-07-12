@@ -122,4 +122,6 @@ void	set_struct(t_map *file)
 	file->we_path = 0;
 	file->ea_path = 0;
 	file->sp_path = 0;
+	file->mapH = 0;
+	file->mapW = 0;
 }

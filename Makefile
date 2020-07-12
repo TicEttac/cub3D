@@ -25,11 +25,11 @@ GNL_SRCS =	get_next_line.c			\
 OBJS = $(addprefix srcs/, $(SRCS))
 GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 
-CFLAGS = -lft -lmlx - lbmp -lm -lbsd -lX11 -lXext -g3 -fsanitize=leak includes -o #-Wall -Werror -Wextra
+#osef des lignes de librairie, ca compile quand meme
+
+CFLAGS = -I includes -I /usr/X11/include/ -g3 -fsanitize=address -L /usr/X11/lib/ -l mlx -framework OpenGL -framework AppKit -o#-o -Wall -Werror -Wextra
 CC = gcc
-LIB = 	libft/libft.a	\
-		libmlx.a		\
-		libmlx_Linux.a	\
+LIB = 	libft/libft.a
 
 all:	$(NAME)
 
