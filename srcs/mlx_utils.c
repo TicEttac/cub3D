@@ -19,30 +19,29 @@ int		set_color(int col[3])
 
 int		column_trace(t_char *player, t_map *file, float hyp, int seg, int hex)
 {
-	float	dist;
+	float	wall;
 	int		i;
 	int		temp_i;
 
-	dist = 1 / hyp;
+	wall = (file->win[1] / (2 * hyp)) * 2;
 	i = 0;
-	while (i < (dist > 1.0 ? (int)((file->win[0] - dist * file->win[0]) / 2) :
-				0))
+	while (i < (file->win[1] - wall) / 2)
 	{
-		mlx_pixel_put(player->mlx, player->win, i,
-				seg, set_color(file->c_color));
+		mlx_pixel_put(player->mlx, player->win, seg,
+				i, set_color(file->c_color));
 		i++;
 	}
 	temp_i = i;
-	while (i < (dist > 1.0 ? temp_i + (int)(dist * file->win[0]) : file->win[0]))
+	while (i < temp_i + wall)
 	{
-		mlx_pixel_put(player->mlx, player->win, i, seg, hex);
+		mlx_pixel_put(player->mlx, player->win, seg, i, hex);
 		i++;
 	}
 	temp_i = i;
-	while (i < (file->win[0] - temp_i))
+	while (i < file->win[1])
 	{
-		mlx_pixel_put(player->mlx, player->win, i,
-				seg, set_color(file->f_color));
+		mlx_pixel_put(player->mlx, player->win, seg, i,
+		set_color(file->f_color));
 		i++;
 	}
 	return (0);
@@ -52,11 +51,13 @@ int		aply_ray(t_point cnt, t_char *player, t_map *file, float ray, int seg)
 {
 	float	hyp;
 
-	hyp = sqrt(powf(cnt.x - player->x, 2) + powf(cnt.y - player->y, 2));
+	hyp = fabs(cnt.x - player->x) / cos(ray);
 	printf("hyp=%f\n", hyp);
-	if (!fmod(player->x, 1))
+	if (!fmod(cnt.x, 1))
 	{
-		if (cos(ray) < 0)
+		if (fmod(cnt.y, 1) < 0.001)
+			column_trace(player, file, hyp, seg, BLACK);
+		else if (cos(ray) < 0)
 			column_trace(player, file, hyp, seg, RED);
 		else
 			column_trace(player, file, hyp, seg, BLUE);

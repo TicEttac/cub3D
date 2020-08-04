@@ -61,6 +61,9 @@ int		main(int ac, char **av)
 	int		index;
 	t_char	player;
 
+	int		i;
+	i = 0;
+
 	if (ac < 2)
 		return (error_flag("No configuration path.\n"));
 	if (!parser(av[1], &file))
@@ -69,7 +72,6 @@ int		main(int ac, char **av)
 	index = print_infos(file);
 	mlx_start(&file, &player);
 	rendering(&file, &player);
-	printf("ok");
 	mlx_loop(player.mlx);
 	while (index >= 0)
 	{

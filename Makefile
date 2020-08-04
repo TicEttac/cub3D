@@ -37,21 +37,21 @@ all:	$(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ./libft all
-	@make -C minilibx_opengl_20191021
-	@mv minilibx_opengl_20191021/libmlx.a .
-	@cp minilibx_opengl_20191021/mlx.h ./includes
+	@make -C minilibX
+	@mv minilibX/libmlx.a .
+	@cp minilibX/mlx.h ./includes
 	@${CC} ${CFLAGS} ${NAME} ${GNL_OBJS} ${OBJS} ${LIB} #&& printf "%-60b\r" "$(_GREEN)$(ECHO)$(_CYAN) Compilation $@"
 
 clean:
 	@rm -rf libmlx.a
 	@rm -rf includes/mlx.h
-	@make -C minilibx_opengl_20191021 clean
+	@make -C minilibX clean
 	@make -C libft clean
 
 fclean:
 	@rm libmlx.a
 	@rm -rf includes/mlx.h
-	@make -C minilibx_opengl_20191021 clean
+	@make -C minilibX clean
 	@make -C libft fclean
 	@rm -f $(NAME)
 
