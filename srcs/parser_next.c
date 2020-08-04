@@ -52,8 +52,8 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 				{
 					if (file->start[0] != 0)
 						return (error_flag("Multiple entry points.\n"));
-					file->start[0] = i_map;
-					file->start[1] = i;
+					file->start[0] = (float)i_map;
+					file->start[1] = (float)i;
 				}
 				file->map[i_map][i].tile = '0';
 				file->map[i_map][i].content = conf_file[index][i];

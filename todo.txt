@@ -8,3 +8,4 @@ Erreurs :
 
 Minime :
 	makefile -I et retirer path des fichiers d'include dans les .c
+	changer le nom du dossier minilibX (dans le makefile aussi)

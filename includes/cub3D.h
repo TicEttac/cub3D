@@ -6,7 +6,7 @@
 /*   By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:06:20 by nisauvig          #+#    #+#             */
-/*   Updated: 2020/06/01 17:37:11 by nisauvig         ###   ########.fr       */
+/*   Updated: 2020/08/04 16:31:04 by nisauvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,19 @@
 # include <stdlib.h>
 # include <math.h>
 # include "../libft/libft.h"
-#include <sys/ipc.h>
-#include <sys/shm.h>
+# include <sys/ipc.h>
+# include <sys/shm.h>
 # include "get_next_line.h"
 # include "mlx.h"
-# include "mlx_int.h"
 
 # define GOOD_OUT 1
 # define BAD_OUT 0
-# define FOV 0.66
+# define FOV (M_PI / 3)
+# define RED 0xFF0000
+# define GREEN 0x00FF00
+# define BLUE 0x0000FF
+# define YELLOW 0xFFFF00
+
 
 typedef struct	s_point
 {
@@ -46,10 +50,11 @@ typedef struct	s_tile
 
 typedef struct	s_char
 {
+	void	*mlx;
+	void	*win;
 	float	x;
 	float	y;
-	float	dirX;
-	float	dirY;
+	float	dir;
 	t_tile	**map;
 }				t_char;
 
@@ -58,7 +63,7 @@ typedef struct	s_map
 	int		win[2];
 	int		f_color[3];
 	int		c_color[3];
-	int		start[2];
+	float	start[2];
 	int		n_path;
 	int		so_path;
 	int		we_path;
@@ -95,6 +100,10 @@ int		add_sprite(char *line, t_map *file, char *id);
 int		add_floor(char *line, t_map *file, char *id);
 int		add_ceiling(char *line, t_map *file, char *id);
 
-int		mlx_start(t_map *file);
+int		mlx_start(t_map *file, t_char *player);
+int		rendering(t_map *file, t_char *player);
+t_point	wall_dist(float delta_ray, t_char *player);
+int		aply_ray(t_point cnt, t_char *player, t_map *file, float ray, int seg);
+int		column_trace(t_char *player, t_map *file, float hyp, int seg, int hex);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/04 11:50:47 by nisauvig          #+#    #+#              #
-#    Updated: 2020/06/06 19:13:18 by nisauvig         ###   ########.fr        #
+#    Updated: 2020/08/04 14:24:15 by nisauvig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS =		add.c					\
 			parser_next.c			\
 			main.c					\
 			mlx_start.c				\
+			mlx_utils.c				\
 
 GNL_SRCS =	get_next_line.c			\
 			get_next_line_utils.c	\
@@ -27,20 +28,30 @@ GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 
 #osef des lignes de librairie, ca compile quand meme
 
-CFLAGS = -I includes -I /usr/X11/include/ -g3 -fsanitize=address -L /usr/X11/lib/ -l mlx -framework OpenGL -framework AppKit -o#-o -Wall -Werror -Wextra
+CFLAGS = -I includes -g3 -fsanitize=address -framework OpenGL -framework AppKit -o#-o -Wall -Werror -Wextra
 CC = gcc
-LIB = 	libft/libft.a
+LIB = 	libft/libft.a	\
+		./libmlx.a		\
 
 all:	$(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ./libft all
+	@make -C minilibx_opengl_20191021
+	@mv minilibx_opengl_20191021/libmlx.a .
+	@cp minilibx_opengl_20191021/mlx.h ./includes
 	@${CC} ${CFLAGS} ${NAME} ${GNL_OBJS} ${OBJS} ${LIB} #&& printf "%-60b\r" "$(_GREEN)$(ECHO)$(_CYAN) Compilation $@"
 
 clean:
+	@rm -rf libmlx.a
+	@rm -rf includes/mlx.h
+	@make -C minilibx_opengl_20191021 clean
 	@make -C libft clean
 
 fclean:
+	@rm libmlx.a
+	@rm -rf includes/mlx.h
+	@make -C minilibx_opengl_20191021 clean
 	@make -C libft fclean
 	@rm -f $(NAME)
 
