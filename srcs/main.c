@@ -6,7 +6,7 @@
 /*   By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 19:24:53 by nisauvig          #+#    #+#             */
-/*   Updated: 2020/08/04 17:29:21 by nisauvig         ###   ########.fr       */
+/*   Updated: 2020/08/07 01:21:36 by nisauvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_char	set_character(t_map *file)
 	player.y = file->start[1] + 0.5;
 	player.map = file->map;
 	player.dir = card == 'E' ? M_PI / 2 : 0;
-	player.dir = card == 'W' ? M_PI + M_PI * (1 / 2) : player.dir;
+	player.dir = card == 'W' ? M_PI + (M_PI / 2) : player.dir;
 	player.dir = card == 'N' ? M_PI : player.dir;
 	return (player);
 }
@@ -71,8 +71,9 @@ int		main(int ac, char **av)
 	player = set_character(&file);
 	index = print_infos(file);
 	mlx_start(&file, &player);
-	rendering(&file, &player);
 	mlx_loop(player.mlx);
+	printf("mlx loop past\n");
+	rendering(&file, &player);
 	while (index >= 0)
 	{
 		free(file.map[index]);

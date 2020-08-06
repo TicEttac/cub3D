@@ -6,7 +6,7 @@
 /*   By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 14:24:38 by nisauvig          #+#    #+#             */
-/*   Updated: 2020/08/04 18:43:01 by nisauvig         ###   ########.fr       */
+/*   Updated: 2020/08/07 00:38:29 by nisauvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		column_trace(t_char *player, t_map *file, float hyp, int seg, int hex)
 	int		i;
 	int		temp_i;
 
-	wall = (file->win[1] / (2 * hyp)) * 2;
+	wall = (file->win[1] / (2 * fabs(hyp))) * 2;
 	i = 0;
 	while (i < (file->win[1] - wall) / 2)
 	{
@@ -52,7 +52,6 @@ int		aply_ray(t_point cnt, t_char *player, t_map *file, float ray, int seg)
 	float	hyp;
 
 	hyp = fabs(cnt.x - player->x) / cos(ray);
-	printf("hyp=%f\n", hyp);
 	if (!fmod(cnt.x, 1))
 	{
 		if (fmod(cnt.y, 1) < 0.001)
