@@ -14,11 +14,11 @@
 
 int		parser(char *path_to_conf, t_map *file)
 {
-	int				map_fd;
-	int				line_n;
-	char			*line;
-	int				gnl;
-	char			**conf_file;
+	int						map_fd;
+	int						line_n;
+	char					*line;
+	int						gnl;
+	char					**conf_file;
 
 	conf_file = NULL;
 	line = NULL;
@@ -61,8 +61,8 @@ int		error_flag(char *verbosity)
 
 char	**one_more_line(char **tab, char *to_add, int index)
 {
-	int				i;
-	char			**return_tab;
+	int						i;
+	char					**return_tab;
 
 	i = 0;
 	if (!(return_tab = malloc(sizeof(char*) * (index + 1))))
@@ -82,12 +82,12 @@ char	**one_more_line(char **tab, char *to_add, int index)
 
 int		ft_parse_infos(char **conf_file, int size, t_map *file)
 {
-	static t_parse	c[] = {{"R ", &add_win}, {"NO", &add_north},
+	static const t_parse	c[] = {{"R ", &add_win}, {"NO", &add_north},
 	{"SO", &add_south}, {"WE", &add_west}, {"EA", &add_east},
 	{"S ", &add_sprite}, {"F ", &add_floor}, {"C ", &add_ceiling}};
-	int				i;
-	int				j;
-	int				ret;
+	int						i;
+	int						j;
+	int						ret;
 
 	i = 0;
 	while (!(ft_fullfilled(file)))

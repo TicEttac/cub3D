@@ -29,12 +29,22 @@
 
 # define GOOD_OUT 1
 # define BAD_OUT 0
+
 # define FOV (M_PI / 3)
+
 # define RED 0xFF0000
 # define GREEN 0x00FF00
 # define BLUE 0x0000FF
 # define YELLOW 0xFFFF00
 # define BLACK 0x000000
+
+# define W_KEY 6
+# define A_KEY 12
+# define S_KEY 1
+# define D_KEY 2
+# define ESC_KEY 53
+# define LEFT_KEY 123
+# define RIGHT_KEY 124
 
 typedef struct	s_point
 {
@@ -48,15 +58,12 @@ typedef struct	s_tile
 	char	content;
 }				t_tile;
 
-typedef struct	s_char
+typedef struct	s_img
 {
-	void	*mlx;
-	void	*win;
-	float	x;
-	float	y;
-	float	dir;
-	t_tile	**map;
-}				t_char;
+	void	*img;
+	int		*tab;
+	int		sl;
+}				t_img;
 
 typedef struct	s_map
 {
@@ -73,6 +80,17 @@ typedef struct	s_map
 	int		mapW;
 	t_tile	**map;
 }				t_map;
+
+typedef struct	s_char
+{
+	void	*mlx;
+	void	*win;
+	float	x;
+	float	y;
+	float	dir;
+	t_map	*file;
+	t_img	image;
+}				t_char;
 
 typedef struct	s_parse
 {
@@ -100,10 +118,19 @@ int		add_sprite(char *line, t_map *file, char *id);
 int		add_floor(char *line, t_map *file, char *id);
 int		add_ceiling(char *line, t_map *file, char *id);
 
+/*---------------------------------< MLX >----------------------------------*/
+
 int		mlx_start(t_map *file, t_char *player);
 int		rendering(t_map *file, t_char *player);
 t_point	wall_dist(float delta_ray, t_char *player);
-int		aply_ray(t_point cnt, t_char *player, t_map *file, float ray, int seg);
-int		column_trace(t_char *player, t_map *file, float hyp, int seg, int hex);
+int		apply_ray(t_point cnt, t_char *player, float ray, int seg);
+int		column_trace(t_char *player, float hyp, int seg, int hex);
+void	init_image(t_char *player);
+
+/*---------------------------------< HOOKS >--------------------------------*/
+
+int		mlx_hooks(t_map *file, t_char *player);
+int		loop_hook(t_char *player);
+int		key_hook(int key, t_char *player);
 
 #endif

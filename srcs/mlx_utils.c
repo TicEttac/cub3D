@@ -17,56 +17,74 @@ int		set_color(int col[3])
 	return (65536 * col[0] + 256 * col[1] + col[2]);
 }
 
-int		column_trace(t_char *player, t_map *file, float hyp, int seg, int hex)
+int		column_trace(t_char *player, float hyp, int seg, int hex)
 {
 	float	wall;
 	int		i;
 	int		temp_i;
+	int		color;
+	long	x;
 
-	wall = (file->win[1] / (2 * fabs(hyp))) * 2;
+	wall = (player->file->win[1] / (2 * fabs(hyp))) * 2;
 	i = 0;
-	while (i < (file->win[1] - wall) / 2)
+	x = seg;
+	color = set_color(player->file->c_color);
+	while (i < (player->file->win[1] - wall) / 2)
 	{
-		mlx_pixel_put(player->mlx, player->win, seg,
-				i, set_color(file->c_color));
+		player->image.tab[x] = color;
+		x += player->file->win[0];
 		i++;
 	}
 	temp_i = i;
 	while (i < temp_i + wall)
 	{
-		mlx_pixel_put(player->mlx, player->win, seg, i, hex);
+		player->image.tab[x] = hex;
+		x += player->file->win[0];
 		i++;
 	}
-	temp_i = i;
-	while (i < file->win[1])
+	color = set_color(player->file->f_color);
+	while (i < player->file->win[1] - 1)
 	{
-		mlx_pixel_put(player->mlx, player->win, seg, i,
-		set_color(file->f_color));
+		player->image.tab[x] = color;
+		x += player->file->win[0];
 		i++;
 	}
 	return (0);
 }
 
-int		aply_ray(t_point cnt, t_char *player, t_map *file, float ray, int seg)
+int		apply_ray(t_point cnt, t_char *player, float ray, int seg)
 {
 	float	hyp;
 
 	hyp = fabs(cnt.x - player->x) / cos(ray);
 	if (!fmod(cnt.x, 1))
 	{
-		if (fmod(cnt.y, 1) < 0.001)
-			column_trace(player, file, hyp, seg, BLACK);
-		else if (cos(ray) < 0)
-			column_trace(player, file, hyp, seg, RED);
+		if (cos(ray) < 0)
+			column_trace(player, hyp, seg, RED);
 		else
-			column_trace(player, file, hyp, seg, BLUE);
+			column_trace(player, hyp, seg, BLUE);
 	}
 	else
 	{
 		if (sin(ray) < 0)
-			column_trace(player, file, hyp, seg, YELLOW);
+			column_trace(player, hyp, seg, YELLOW);
 		else
-			column_trace(player, file, hyp, seg, GREEN);
+			column_trace(player, hyp, seg, GREEN);
 	}
 	return (0);
+}
+
+void	init_image(t_char *player)
+{
+	int		bpp;
+	int		endian;
+
+	bpp = 32;
+	endian = 0;
+	player->image.img = mlx_new_image(player->mlx, player->file->win[0]
+	, player->file->win[1]);
+	player->image.sl = player->file->win[0];
+	player->image.tab = (int*)mlx_get_data_addr(player->image.img, &bpp,
+	&player->image.sl, &endian);
+	rendering(player->file, player);
 }

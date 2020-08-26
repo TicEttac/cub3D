@@ -21,7 +21,7 @@ t_char	set_character(t_map *file)
 	card = file->map[(int)file->start[0]][(int)file->start[1]].content;
 	player.x = file->start[0] + 0.5;
 	player.y = file->start[1] + 0.5;
-	player.map = file->map;
+	player.file = file;
 	player.dir = card == 'E' ? M_PI / 2 : 0;
 	player.dir = card == 'W' ? M_PI + (M_PI / 2) : player.dir;
 	player.dir = card == 'N' ? M_PI : player.dir;
@@ -40,10 +40,10 @@ int		print_infos(t_map file)
 		i = 0;
 		while (file.map[index][i].tile != '\0')
 		{
-//			printf("%c", file.map[index][i].tile);
+			printf("%c", file.map[index][i].tile);
 			i++;
 		}
-//		printf("\n");
+		printf("\n");
 		index++;
 	}
 	i = 0;
@@ -71,9 +71,9 @@ int		main(int ac, char **av)
 	player = set_character(&file);
 	index = print_infos(file);
 	mlx_start(&file, &player);
+	init_image(&player);
+	mlx_hooks(&file, &player);
 	mlx_loop(player.mlx);
-	printf("mlx loop past\n");
-	rendering(&file, &player);
 	while (index >= 0)
 	{
 		free(file.map[index]);

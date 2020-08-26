@@ -19,6 +19,7 @@ SRCS =		add.c					\
 			main.c					\
 			mlx_start.c				\
 			mlx_utils.c				\
+			hooks.c					\
 
 GNL_SRCS =	get_next_line.c			\
 			get_next_line_utils.c	\

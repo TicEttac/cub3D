@@ -9,21 +9,40 @@
 #include <math.h>
 #include <stdio.h>
 
-int		print_key()
+typedef struct s_struct {
+
+	void *mlx;
+	void *win;
+	void *img;
+	int *tab;
+
+} t_struct;
+
+int		print_key(int key, t_struct *view)
 {
-	printf("gut\n");
+	int i = 0, x = 170, color = 65536 * 178 + 256 * 102 + 255;
+	while (i < 1080)
+	{
+		view->tab[x] = color;
+		x += 1920;
+		i++;
+	}
+	mlx_put_image_to_window(view->mlx, view->win, view->img, 0, 0);
 	return (0);
 }
 int		main()
 {
-	void	*mlx;
-	void	*win;
+	int bpp = 32;
+	int sl = 1920;
+	int en = 0;
 	int		x;
+	t_struct view;
 
-	x = 0;
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 1920, 1080, "cub3D");
-	mlx_key_hook(win, &print_key, NULL);
-	mlx_loop(mlx);
+	view.mlx = mlx_init();
+	view.win = mlx_new_window(view.mlx, 1920, 1080, "cub3D");
+	view.img = mlx_new_image(view.mlx, 1920, 1080);
+	view.tab = (int*)mlx_get_data_addr(view.img, &bpp, &sl, &en);
+	mlx_key_hook(view.win, &print_key, &view);
+	mlx_loop(view.mlx);
 	return 0;
 }

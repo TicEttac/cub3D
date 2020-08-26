@@ -14,6 +14,7 @@
 
 int		mlx_start(t_map *file, t_char *player)
 {
+	printf("player.x=%f player.y=%f\n", player->x, player->y);
 	if (!(player->mlx = mlx_init()))
 		return (error_flag("MLX error : funct. init doesn't work.\n"));
 	if (!(player->win = mlx_new_window(player->mlx,
@@ -52,7 +53,7 @@ t_point	wall_dist(float delta, t_char *player)
 	diff.y = (float)(sin(delta) > 0) - fmod(player->y, 1);
 	cont.x = player->x - fmod(player->x, 1);
 	cont.y = player->y - fmod(player->y, 1);
-	while (player->map[(int)cont.x][(int)cont.y].tile != '1')
+	while (player->file->map[(int)cont.x][(int)cont.y].tile != '1')
 	{
 		hyp.x = (1 / cos(delta)) * fabs(diff.x);
 		hyp.y = (1 / sin(delta)) * fabs(diff.y);
@@ -79,15 +80,19 @@ int		rendering(t_map *file, t_char *player)
 	int		segment;
 	float	delta_ray;
 	t_point	cont;
+	void	*img;
+	int		*tab;
 
 	segment = 0;
+	mlx_clear_window(player->mlx, player->win);
 	delta_ray = player->dir - (FOV / 2);
 	while (segment <= file->win[0])
 	{
 		cont = wall_dist(delta_ray, player);
-		aply_ray(cont, player, file, delta_ray, segment);
+		apply_ray(cont, player, delta_ray, segment);
 		segment++;
 		delta_ray += FOV / file->win[0];
 	}
+	mlx_put_image_to_window(player->mlx, player->win, player->image.img, 0, 0);
 	return (0);
 }
