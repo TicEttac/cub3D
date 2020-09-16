@@ -70,6 +70,7 @@ int		main(int ac, char **av)
 		return (0);
 	player = set_character(&file);
 	index = print_infos(file);
+	printf("mapH=%d, mapW=%d\n", file.mapH, file.mapW);
 	mlx_start(&file, &player);
 	init_image(&player);
 	mlx_hooks(&file, &player);

@@ -41,11 +41,26 @@ t_point	key_mod(int key, t_char *player)
 
 int		test_pos(t_point next, t_tile **map)
 {
-	printf("next.x=%d next.y=%d\n", (int)(next.x - fmod(next.x, 1)), (int)(next.y - fmod(next.y, 1)));
-	printf("char =%d\n", (int)map[(int)(next.x - fmod(next.x, 1))][(int)(next.y - fmod(next.y, 1))].tile);
 	if (map[(int)(next.x - fmod(next.x, 1))]
 				[(int)(next.y - fmod(next.y, 1))].tile == ' ')
 		return (1);
+	return (0);
+}
+
+int		clean_exit(t_char *player)
+{
+	int		i;
+
+	i = player->file->mapH;
+	mlx_destroy_image(player->mlx, player->image.img);
+	mlx_clear_window(player->mlx, player->win);
+	mlx_destroy_window(player->mlx, player->win);
+	while (i >= 0)
+	{
+		free(player->file->map[i]);
+		i--;
+	}
+	exit(0);
 	return (0);
 }
 
@@ -53,12 +68,12 @@ int		key_hook(int key, t_char *player)
 {
 	t_point	next;
 
-	if (key == LEFT_KEY)
-		player->dir -= M_PI / 10;
 	if (key == RIGHT_KEY)
-		player->dir += M_PI / 10;
+		player->dir -= M_PI / 25;
+	if (key == LEFT_KEY)
+		player->dir += M_PI / 25;
 	if (key == ESC_KEY)
-		return (key);
+		return (clean_exit(player));
 	if (key == W_KEY || key == S_KEY || key == A_KEY || key == D_KEY)
 	{
 		next = key_mod(key, player);
@@ -77,6 +92,6 @@ int		mlx_hooks(t_map *file, t_char *player)
 
 	ret = 0;
 	rendering(player->file, player);
-	ret = mlx_key_hook(player->win, &key_hook, player);
+	ret = mlx_hook(player->win, 2, 0, &key_hook, player);
 	return (ret);
 }

@@ -29,7 +29,7 @@ GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 
 #osef des lignes de librairie, ca compile quand meme
 
-CFLAGS = -I includes -g3 -fsanitize=address -framework OpenGL -framework AppKit -o#-o -Wall -Werror -Wextra
+CFLAGS = -I includes -framework OpenGL -framework AppKit -o#-o -Wall -Werror -Wextra
 CC = gcc
 LIB = 	libft/libft.a	\
 		./libmlx.a		\

@@ -17,6 +17,20 @@ int		set_color(int col[3])
 	return (65536 * col[0] + 256 * col[1] + col[2]);
 }
 
+int		colum_fill(t_char *player, int seg, int hex)
+{
+	int		i;
+
+	i = 0;
+	while (i < player->file->win[1] - 1)
+	{
+		player->image.tab[seg] = hex;
+		seg += player->file->win[0];
+		i++;
+	}
+	return (0);
+}
+
 int		column_trace(t_char *player, float hyp, int seg, int hex)
 {
 	float	wall;
@@ -25,7 +39,8 @@ int		column_trace(t_char *player, float hyp, int seg, int hex)
 	int		color;
 	long	x;
 
-	wall = (player->file->win[1] / (2 * fabs(hyp))) * 2;
+	if ((wall = (player->file->win[1] / (2 * fabs(hyp))) * 2) >= player->file->win[1] - 1)
+		return (colum_fill(player, seg, hex));
 	i = 0;
 	x = seg;
 	color = set_color(player->file->c_color);
@@ -56,9 +71,10 @@ int		apply_ray(t_point cnt, t_char *player, float ray, int seg)
 {
 	float	hyp;
 
-	hyp = fabs(cnt.x - player->x) / cos(ray);
 	if (!fmod(cnt.x, 1))
 	{
+		write(1, "contact X\n", 10);
+		hyp = (fabs(cnt.x - player->x) / cos(ray));
 		if (cos(ray) < 0)
 			column_trace(player, hyp, seg, RED);
 		else
@@ -66,6 +82,8 @@ int		apply_ray(t_point cnt, t_char *player, float ray, int seg)
 	}
 	else
 	{
+		write(1, "contact Y\n", 10);
+		hyp = (fabs(cnt.y - player->y) / sin(ray));
 		if (sin(ray) < 0)
 			column_trace(player, hyp, seg, YELLOW);
 		else

@@ -55,8 +55,8 @@ t_point	wall_dist(float delta, t_char *player)
 	cont.y = player->y - fmod(player->y, 1);
 	while (player->file->map[(int)cont.x][(int)cont.y].tile != '1')
 	{
-		hyp.x = (1 / cos(delta)) * fabs(diff.x);
-		hyp.y = (1 / sin(delta)) * fabs(diff.y);
+		hyp.x = fabs(diff.x) / fabs(cos(delta));
+		hyp.y = fabs(diff.y) / fabs(sin(delta));
 		cx.x = player->x + diff.x;
 		cx.y = player->y + tan(delta) * fabs(diff.x); //y = ... * diff.x is normal
 		cy.x = player->x + diff.y / tan(delta);
@@ -85,13 +85,13 @@ int		rendering(t_map *file, t_char *player)
 
 	segment = 0;
 	mlx_clear_window(player->mlx, player->win);
-	delta_ray = player->dir - (FOV / 2);
+	delta_ray = player->dir + (FOV / 2);
 	while (segment <= file->win[0])
 	{
 		cont = wall_dist(delta_ray, player);
 		apply_ray(cont, player, delta_ray, segment);
 		segment++;
-		delta_ray += FOV / file->win[0];
+		delta_ray -= FOV / file->win[0];
 	}
 	mlx_put_image_to_window(player->mlx, player->win, player->image.img, 0, 0);
 	return (0);

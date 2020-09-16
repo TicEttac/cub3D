@@ -117,6 +117,8 @@ void	set_struct(t_map *file)
 	file->c_color[0] = 0;
 	file->c_color[1] = 0;
 	file->c_color[2] = 0;
+	file->start[0] = 0;
+	file->start[1] = 0;
 	file->n_path = 0;
 	file->so_path = 0;
 	file->we_path = 0;

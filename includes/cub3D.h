@@ -38,8 +38,8 @@
 # define YELLOW 0xFFFF00
 # define BLACK 0x000000
 
-# define W_KEY 6
-# define A_KEY 12
+# define W_KEY 13
+# define A_KEY 0
 # define S_KEY 1
 # define D_KEY 2
 # define ESC_KEY 53
@@ -98,16 +98,25 @@ typedef struct	s_parse
 	int		(*func)(char *line, t_map *file, char *id);
 }				t_parse;
 
+/*------------------------------__PROTOTYPES__------------------------------*/
+/*---------------------------------< EXIT >---------------------------------*/
+
+int		error_flag(char *str);
+int		clean_exit(t_char *player);
+
+/*--------------------------------< PARSING >-------------------------------*/
+
 int		parser(char *str, t_map *file);
 int		ft_parse_infos(char **conf_file, int size, t_map *file);
 int		ft_parse_map(char **conf_file, int size, int i, t_map *file);
 int		map_checking(t_tile **map, int entry_x, int entry_y);
-int		error_flag(char *str);
 int		ft_fullfilled(t_map *file);
 char	*add_path(char *line, char *id);
 char	**one_more_line(char **tab, char *to_add, int index);
 void	free_dtab(char **dtab, int i);
 void	set_struct(t_map *file);
+
+/*----------------------------< COLOR AND TEXTURES >------------------------*/
 
 int		add_win(char *line, t_map *file, char *id);
 int		add_north(char *line, t_map *file, char *id);
