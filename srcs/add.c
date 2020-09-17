@@ -119,11 +119,11 @@ void	set_struct(t_map *file)
 	file->c_color[2] = 0;
 	file->start[0] = 0;
 	file->start[1] = 0;
-	file->n_path = 0;
-	file->so_path = 0;
-	file->we_path = 0;
-	file->ea_path = 0;
-	file->sp_path = 0;
+	file->n_path.tex = 0;
+	file->so_path.tex = 0;
+	file->we_path.tex = 0;
+	file->ea_path.tex = 0;
+	file->sp_path.tex = 0;
 	file->mapH = 0;
 	file->mapW = 0;
 }

@@ -19,6 +19,8 @@ SRCS =		add.c					\
 			main.c					\
 			mlx_start.c				\
 			mlx_utils.c				\
+			mlx_utils_2.c			\
+			texture.c				\
 			hooks.c					\
 
 GNL_SRCS =	get_next_line.c			\

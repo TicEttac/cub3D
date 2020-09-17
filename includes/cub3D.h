@@ -65,17 +65,25 @@ typedef struct	s_img
 	int		sl;
 }				t_img;
 
+typedef struct	s_tex
+{
+	int		*tex;
+	t_point	cnt;
+	int		width;
+	int		height;
+}				t_tex;
+
 typedef struct	s_map
 {
 	int		win[2];
 	int		f_color[3];
 	int		c_color[3];
 	float	start[2];
-	int		n_path;
-	int		so_path;
-	int		we_path;
-	int		ea_path;
-	int		sp_path;
+	t_tex	n_path;
+	t_tex	so_path;
+	t_tex	we_path;
+	t_tex	ea_path;
+	t_tex	sp_path;
 	int		mapH;
 	int		mapW;
 	t_tile	**map;
@@ -126,20 +134,26 @@ int		add_west(char *line, t_map *file, char *id);
 int		add_sprite(char *line, t_map *file, char *id);
 int		add_floor(char *line, t_map *file, char *id);
 int		add_ceiling(char *line, t_map *file, char *id);
+int		load_north(t_char *player);
+int		load_south(t_char *player);
+int		load_east(t_char *player);
+int		load_west(t_char *player);
+int		load_sprite(t_char *player);
 
 /*---------------------------------< MLX >----------------------------------*/
 
-int		mlx_start(t_map *file, t_char *player);
-int		rendering(t_map *file, t_char *player);
+int		mlx_start(t_char *player);
+int		rendering(t_char *player);
 t_point	wall_dist(float delta_ray, t_char *player);
 int		apply_ray(t_point cnt, t_char *player, float ray, int seg);
-int		column_trace(t_char *player, float hyp, int seg, int hex);
+int		column_trace(t_char *player, float hyp, int seg, t_tex tex);
 void	init_image(t_char *player);
+int		load_texture(t_char *player);
 
 /*---------------------------------< HOOKS >--------------------------------*/
 
-int		mlx_hooks(t_map *file, t_char *player);
-int		loop_hook(t_char *player);
+int		mlx_hooks(t_char *player);
 int		key_hook(int key, t_char *player);
+
 
 #endif

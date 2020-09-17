@@ -12,14 +12,20 @@
 
 #include "cub3D.h"
 
-int		mlx_start(t_map *file, t_char *player)
+int		mlx_start(t_char *player)
 {
+	char	*path;
+	int		i;
+
+	i = 0;
 	printf("player.x=%f player.y=%f\n", player->x, player->y);
 	if (!(player->mlx = mlx_init()))
 		return (error_flag("MLX error : funct. init doesn't work.\n"));
 	if (!(player->win = mlx_new_window(player->mlx,
-					file->win[0], file->win[1], "cub3D")))
+					player->file->win[0], player->file->win[1], "cub3D")))
 		return (error_flag("MLX error : funct. new_window doesn't work.\n"));
+	if (!load_texture(player))
+		return (BAD_OUT);
 	return (GOOD_OUT);
 }
 
@@ -75,7 +81,7 @@ t_point	wall_dist(float delta, t_char *player)
 	return (fabs(hyp.x) < fabs(hyp.y) ? cx : cy);
 }
 
-int		rendering(t_map *file, t_char *player)
+int		rendering(t_char *player)
 {
 	int		segment;
 	float	delta_ray;
@@ -86,12 +92,12 @@ int		rendering(t_map *file, t_char *player)
 	segment = 0;
 	mlx_clear_window(player->mlx, player->win);
 	delta_ray = player->dir + (FOV / 2);
-	while (segment <= file->win[0])
+	while (segment <= player->file->win[0])
 	{
 		cont = wall_dist(delta_ray, player);
 		apply_ray(cont, player, delta_ray, segment);
 		segment++;
-		delta_ray -= FOV / file->win[0];
+		delta_ray -= FOV / player->file->win[0];
 	}
 	mlx_put_image_to_window(player->mlx, player->win, player->image.img, 0, 0);
 	return (0);

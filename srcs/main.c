@@ -71,9 +71,9 @@ int		main(int ac, char **av)
 	player = set_character(&file);
 	index = print_infos(file);
 	printf("mapH=%d, mapW=%d\n", file.mapH, file.mapW);
-	mlx_start(&file, &player);
+	mlx_start(&player);
 	init_image(&player);
-	mlx_hooks(&file, &player);
+	mlx_hooks(&player);
 	mlx_loop(player.mlx);
 	while (index >= 0)
 	{

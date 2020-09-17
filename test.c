@@ -9,15 +9,21 @@
 #include <math.h>
 #include <stdio.h>
 
-typedef struct s_struct {
-
+typedef struct	s_struct
+{
 	void	*mlx;
 	void	*win;
 	void	*img;
 	int		*tab;
 	long	x;
+}				t_struct;
 
-} t_struct;
+typedef struct	s_tex
+{
+	int		*tab;
+	int		width;
+	int		height;
+}				t_tex;
 
 int		print_key(int key, t_struct *view)
 {
@@ -35,19 +41,24 @@ int		print_key(int key, t_struct *view)
 		mlx_put_image_to_window(view->mlx, view->win, view->img, 0, 0);
 	return (0);
 }
+
 int		main()
 {
-	int		bpp = 32;
-	int		sl = 1920;
-	int		en = 0;
-	t_struct view;
+	int			bpp = 32;
+	int			sl = 1920;
+	int			en = 0;
+	t_struct	view;
+	t_tex		tex;
 
 	view.x = 0;
 	view.mlx = mlx_init();
-	view.win = mlx_new_window(view.mlx, 1920, 1080, "cub3D");
-	view.img = mlx_new_image(view.mlx, 1920, 1080);
-	view.tab = (int*)mlx_get_data_addr(view.img, &bpp, &sl, &en);
-	mlx_hook(view.win, 2, 0, &print_key, &view);
+	tex.tab = mlx_xpm_file_to_image(view.mlx, "./texture/wall_1.xpm", &tex.width, &tex.height);
+	view.win = mlx_new_window(view.mlx, tex.width, tex.width, "wall_1.xpm");
+	//view.img = mlx_new_image(view.mlx, tex.width, tex.height);
+	//view.tab = (int*)mlx_get_data_addr(view.img, &bpp, &sl, &en);
+	mlx_put_image_to_window(view.mlx, view.win, tex.tab, 0, 0);
+	printf("width=%d, height=%d\n", tex.width, tex.height);
+	//mlx_hook(view.win, 2, 0, &print_key, &view);
 	mlx_loop(view.mlx);
 	return 0;
 }

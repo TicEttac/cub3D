@@ -83,15 +83,15 @@ int		key_hook(int key, t_char *player)
 			player->y = next.y;
 		}
 	}
-	return (rendering(player->file, player));
+	return (rendering(player));
 }
 
-int		mlx_hooks(t_map *file, t_char *player)
+int		mlx_hooks(t_char *player)
 {
 	int		ret;
 
 	ret = 0;
-	rendering(player->file, player);
+	rendering(player);
 	ret = mlx_hook(player->win, 2, 0, &key_hook, player);
 	return (ret);
 }

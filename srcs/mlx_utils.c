@@ -17,30 +17,36 @@ int		set_color(int col[3])
 	return (65536 * col[0] + 256 * col[1] + col[2]);
 }
 
-int		colum_fill(t_char *player, int seg, int hex)
+int		colum_fill(t_char *player, float wall, int seg, t_tex tex)
 {
 	int		i;
+	int		px;
+	int		col;
 
 	i = 0;
+	px = (wall - player->file->win[1]) / 2;
+	col = fmod(tex.cnt.x, 1) ? fmod(tex.cnt.x, 1) * tex.width + px :
+			fmod(tex.cnt.y, 1) * tex.width + px;
 	while (i < player->file->win[1] - 1)
 	{
-		player->image.tab[seg] = hex;
+		player->image.tab[seg] = tex.tex[col];
 		seg += player->file->win[0];
 		i++;
+		col += tex.width;
 	}
 	return (0);
 }
 
-int		column_trace(t_char *player, float hyp, int seg, int hex)
+int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 {
 	float	wall;
 	int		i;
-	int		temp_i;
+	int		tmp_i;
 	int		color;
 	long	x;
 
 	if ((wall = (player->file->win[1] / (2 * fabs(hyp))) * 2) >= player->file->win[1] - 1)
-		return (colum_fill(player, seg, hex));
+		return (colum_fill(player, wall, seg, tex));
 	i = 0;
 	x = seg;
 	color = set_color(player->file->c_color);
@@ -50,10 +56,11 @@ int		column_trace(t_char *player, float hyp, int seg, int hex)
 		x += player->file->win[0];
 		i++;
 	}
-	temp_i = i;
-	while (i < temp_i + wall)
+	tmp_i = i;
+	
+	while (i < tmp_i + wall)
 	{
-		player->image.tab[x] = hex;
+		player->image.tab[x] = tex.tex[(int)((i - tmp_i) * tex.height / wall)];
 		x += player->file->win[0];
 		i++;
 	}
@@ -73,21 +80,31 @@ int		apply_ray(t_point cnt, t_char *player, float ray, int seg)
 
 	if (!fmod(cnt.x, 1))
 	{
-		write(1, "contact X\n", 10);
 		hyp = (fabs(cnt.x - player->x) / cos(ray));
 		if (cos(ray) < 0)
-			column_trace(player, hyp, seg, RED);
+		{
+			player->file->n_path.cnt = cnt;
+			column_trace(player, hyp, seg, player->file->n_path);
+		}
 		else
-			column_trace(player, hyp, seg, BLUE);
+		{
+			player->file->n_path.cnt = cnt;
+			column_trace(player, hyp, seg, player->file->so_path);
+		}
 	}
 	else
 	{
-		write(1, "contact Y\n", 10);
 		hyp = (fabs(cnt.y - player->y) / sin(ray));
 		if (sin(ray) < 0)
-			column_trace(player, hyp, seg, YELLOW);
+		{
+			player->file->n_path.cnt = cnt;
+			column_trace(player, hyp, seg, player->file->ea_path);
+		}
 		else
-			column_trace(player, hyp, seg, GREEN);
+		{
+			player->file->n_path.cnt = cnt;
+			column_trace(player, hyp, seg, player->file->we_path);
+		}
 	}
 	return (0);
 }
@@ -104,5 +121,5 @@ void	init_image(t_char *player)
 	player->image.sl = player->file->win[0];
 	player->image.tab = (int*)mlx_get_data_addr(player->image.img, &bpp,
 	&player->image.sl, &endian);
-	rendering(player->file, player);
+	rendering(player);
 }
