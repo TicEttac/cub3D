@@ -76,6 +76,7 @@ int		add_floor(char *line, t_map *file, char *id)
 	}
 	if (swich < 2)
 		return (error_flag("Not enough arguments on floor color.\n"));
+	file->f_color[0] = 65536 * file->f_color[0] + 256 * file->f_color[1] + file->f_color[2];
 	return (GOOD_OUT);
 }
 
@@ -104,6 +105,7 @@ int		add_ceiling(char *line, t_map *file, char *id)
 	}
 	if (swich < 2)
 		return (error_flag("Not enough arguments on ceiling color.\n"));
+	file->c_color[0] = 65536 * file->c_color[0] + 256 * file->c_color[1] + file->c_color[2];
 	return (GOOD_OUT);
 }
 

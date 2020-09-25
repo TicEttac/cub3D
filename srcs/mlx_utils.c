@@ -12,11 +12,6 @@
 
 #include "cub3D.h"
 
-int		set_color(int col[3])
-{
-	return (65536 * col[0] + 256 * col[1] + col[2]);
-}
-
 int		colum_fill(t_char *player, float wall, int seg, t_tex tex)
 {
 	int		i;
@@ -44,30 +39,30 @@ int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 	int		tmp_i;
 	int		color;
 	long	x;
+	int		col;
 
 	if ((wall = (player->file->win[1] / (2 * fabs(hyp))) * 2) >= player->file->win[1] - 1)
 		return (colum_fill(player, wall, seg, tex));
+	printf("wall = %f\n", wall);
 	i = 0;
 	x = seg;
-	color = set_color(player->file->c_color);
 	while (i < (player->file->win[1] - wall) / 2)
 	{
-		player->image.tab[x] = color;
+		player->image.tab[x] = player->file->c_color[0];
 		x += player->file->win[0];
 		i++;
 	}
 	tmp_i = i;
-	
+	col = !fmod(tex.cnt.x, 1) ? fmod(tex.cnt.y, 1) : fmod(tex.cnt.x, 1);
 	while (i < tmp_i + wall)
 	{
-		player->image.tab[x] = tex.tex[(int)((i - tmp_i) * tex.height / wall)];
+		player->image.tab[x] = tex.tex[(int)(((i - tmp_i) * tex.width / wall) + col)];
 		x += player->file->win[0];
 		i++;
 	}
-	color = set_color(player->file->f_color);
 	while (i < player->file->win[1] - 1)
 	{
-		player->image.tab[x] = color;
+		player->image.tab[x] = player->file->f_color[0];
 		x += player->file->win[0];
 		i++;
 	}

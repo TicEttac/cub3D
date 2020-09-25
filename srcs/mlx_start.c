@@ -64,7 +64,7 @@ t_point	wall_dist(float delta, t_char *player)
 		hyp.x = fabs(diff.x) / fabs(cos(delta));
 		hyp.y = fabs(diff.y) / fabs(sin(delta));
 		cx.x = player->x + diff.x;
-		cx.y = player->y + tan(delta) * fabs(diff.x); //y = ... * diff.x is normal
+		cx.y = player->y + tan(delta) * diff.x; //y = ... * diff.x is normal
 		cy.x = player->x + diff.y / tan(delta);
 		cy.y = player->y + diff.y;
 		if (fabs(hyp.x) < fabs(hyp.y))

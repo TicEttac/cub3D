@@ -68,6 +68,7 @@ typedef struct	s_img
 typedef struct	s_tex
 {
 	int		*tex;
+	void	*tab;
 	t_point	cnt;
 	int		width;
 	int		height;
