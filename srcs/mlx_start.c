@@ -18,7 +18,6 @@ int		mlx_start(t_char *player)
 	int		i;
 
 	i = 0;
-	printf("player.x=%f player.y=%f\n", player->x, player->y);
 	if (!(player->mlx = mlx_init()))
 		return (error_flag("MLX error : funct. init doesn't work.\n"));
 	if (!(player->win = mlx_new_window(player->mlx,

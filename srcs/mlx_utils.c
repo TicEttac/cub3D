@@ -35,36 +35,34 @@ int		colum_fill(t_char *player, float wall, int seg, t_tex tex)
 int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 {
 	float	wall;
-	int		i;
 	int		tmp_i;
 	int		color;
 	long	x;
-	int		col;
+	long	y;
 
 	if ((wall = (player->file->win[1] / (2 * fabs(hyp))) * 2) >= player->file->win[1] - 1)
 		return (colum_fill(player, wall, seg, tex));
-	printf("wall = %f\n", wall);
-	i = 0;
 	x = seg;
-	while (i < (player->file->win[1] - wall) / 2)
+	while (x < ((player->file->win[1] - wall) / 2) * player->file->win[0])
 	{
 		player->image.tab[x] = player->file->c_color[0];
 		x += player->file->win[0];
-		i++;
 	}
-	tmp_i = i;
-	col = !fmod(tex.cnt.x, 1) ? fmod(tex.cnt.y, 1) : fmod(tex.cnt.x, 1);
-	while (i < tmp_i + wall)
+	tmp_i = x / player->file->win[0];
+	y = fmod((!fmod(tex.cnt.x, 1) ? tex.cnt.y : tex.cnt.x) , 1) * tex.width;
+	while (x < (tmp_i + wall) * player->file->win[0])
 	{
-		player->image.tab[x] = tex.tex[(int)(((i - tmp_i) * tex.width / wall) + col)];
+//		printf("lll %i\n", (int)(((float)x / player->file->win[0] - tmp_i) * (float)tex.height / wall));
+		//if (60 == (int)(((float)x / player->file->win[0] - tmp_i) * (float)tex.height / wall))
+        
+		player->image.tab[x] = tex.tab[(int)((int)y  + (int)(((float)x / player->file->win[0] - tmp_i) * (float)tex.height / wall) * tex.width)];
+//		printf("img tab%d\n", (int)(((x / player->file->win[0] - tmp_i) * tex.height / wall)));
 		x += player->file->win[0];
-		i++;
 	}
-	while (i < player->file->win[1] - 1)
+	while (x < (player->file->win[1] - 1) * player->file->win[0])
 	{
 		player->image.tab[x] = player->file->f_color[0];
 		x += player->file->win[0];
-		i++;
 	}
 	return (0);
 }
@@ -83,7 +81,7 @@ int		apply_ray(t_point cnt, t_char *player, float ray, int seg)
 		}
 		else
 		{
-			player->file->n_path.cnt = cnt;
+			player->file->so_path.cnt = cnt;
 			column_trace(player, hyp, seg, player->file->so_path);
 		}
 	}
@@ -92,12 +90,12 @@ int		apply_ray(t_point cnt, t_char *player, float ray, int seg)
 		hyp = (fabs(cnt.y - player->y) / sin(ray));
 		if (sin(ray) < 0)
 		{
-			player->file->n_path.cnt = cnt;
+			player->file->ea_path.cnt = cnt;
 			column_trace(player, hyp, seg, player->file->ea_path);
 		}
 		else
 		{
-			player->file->n_path.cnt = cnt;
+			player->file->we_path.cnt = cnt;
 			column_trace(player, hyp, seg, player->file->we_path);
 		}
 	}

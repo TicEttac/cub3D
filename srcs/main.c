@@ -61,9 +61,6 @@ int		main(int ac, char **av)
 	int		index;
 	t_char	player;
 
-	int		i;
-	i = 0;
-
 	if (ac < 2)
 		return (error_flag("No configuration path.\n"));
 	if (!parser(av[1], &file))

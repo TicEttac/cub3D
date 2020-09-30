@@ -1,0 +1,25 @@
+pas encore fait :
+	error_map avec agruments variadiques (free tout)
+	error_map qui donne la ligne de l'erreur
+
+Erreurs :
+	voir map : incorrect.cub (/n manquant)
+	SEGV si paramatre après la map
+
+Minime :
+	makefile -I et retirer path des fichiers d'include dans les .c
+	changer le nom du dossier minilibX (dans le makefile aussi)
+
+
+La base:
+
+- Permettre l'appui simultane de deux touches ou plus sans qu'elles s'affectent les unes les autres
+
+- Faire une fenetre moins grande parce que la ca tourne a 10 fps
+
+- Faire des tests unitaires pour fix ton parser
+
+- Ajouter GNL a ta libft
+
+- Te faire ta propre config neovim, parce que sublimvim c'est casse.
+(Serieux, tu te fais du mal.)
