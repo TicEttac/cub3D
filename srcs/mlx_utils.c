@@ -12,25 +12,24 @@
 
 #include "cub3D.h"
 
-int		colum_fill(t_char *player, float wall, int seg, t_tex tex)
+int     colum_fill(t_char *player, float wall, long seg, t_tex tex)
 {
-	int		i;
-	int		px;
-	int		col;
+	int     i;
+	int     px;
+	long    col;
+	float   texmarge;
 
 	i = 0;
-	px = (wall - player->file->win[1]) / 2;
-	col = fmod(tex.cnt.x, 1) ? fmod(tex.cnt.x, 1) * tex.width + px :
-			fmod(tex.cnt.y, 1) * tex.width + px;
+	texmarge = tex.height * (float)(wall - player->file->win[1]) / wall;
+	col = (long)(fmod((!fmod(tex.cnt.x, 1) ? tex.cnt.y : tex.cnt.x) , 1) * tex.width);
 	while (i < player->file->win[1] - 1)
 	{
-		player->image.tab[seg] = tex.tex[col];
+		player->image.tab[seg] = tex.tab[col + (long)(texmarge / 2 + (tex.height - texmarge) * ((float)seg / player->file->win[0] / player->file->win[1])) * tex.width];
 		seg += player->file->win[0];
 		i++;
-		col += tex.width;
 	}
 	return (0);
-}
+ }
 
 int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 {
