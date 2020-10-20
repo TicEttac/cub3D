@@ -46,7 +46,7 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 		i = 0;
 		while (conf_file[index][i] != '\0')
 		{
-			if (ft_strchr("NSWE2T ", (int)conf_file[index][i]))
+			if (ft_strchr("NSWET ", (int)conf_file[index][i]))
 			{
 				if (ft_strchr("NSWE", (int)conf_file[index][i]))
 				{
@@ -58,7 +58,7 @@ int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
 				file->map[i_map][i].tile = '0';
 				file->map[i_map][i].content = conf_file[index][i];
 			}
-			else if (ft_strchr("10", (int)conf_file[index][i]))
+			else if (ft_strchr("210", (int)conf_file[index][i]))
 			{
 				file->map[i_map][i].tile = conf_file[index][i];
 				file->map[i_map][i].content = '0';

@@ -50,34 +50,32 @@ t_point	wall_dist(float delta, t_char *player)
 {
 	t_point	diff;
 	t_point	hyp;
-	t_point	cx;
-	t_point	cy;
+	t_point	c[2];
 	t_point	cont;
 
-	diff.x = (float)(cos(delta) > 0) - fmod(player->x, 1);
-	diff.y = (float)(sin(delta) > 0) - fmod(player->y, 1);
-	cont.x = player->x - fmod(player->x, 1);
-	cont.y = player->y - fmod(player->y, 1);
+	diff = wall_diff(delta, player);
+	cont = contact(player);
 	while (player->file->map[(int)cont.x][(int)cont.y].tile != '1')
 	{
-		hyp.x = fabs(diff.x) / fabs(cos(delta));
-		hyp.y = fabs(diff.y) / fabs(sin(delta));
-		cx.x = player->x + diff.x;
-		cx.y = player->y + tan(delta) * diff.x; //y = ... * diff.x is normal
-		cy.x = player->x + diff.y / tan(delta);
-		cy.y = player->y + diff.y;
+		hyp = hypotenuse(diff, delta);
 		if (fabs(hyp.x) < fabs(hyp.y))
 		{
-			cont = check_x(delta, cx);
+			c[0].x = player->x + diff.x;
+			c[0].y = player->y + tan(delta) * diff.x; //y = ... * diff.x is normal
+			cont = check_x(delta, c[0]);
 			diff.x += (diff.x / fabs(diff.x));
 		}
 		else
 		{
-			cont = check_y(delta, cy);
+			c[1].x = player->x + diff.y / tan(delta);
+			c[1].y = player->y + diff.y;
+			cont = check_y(delta, c[1]);
 			diff.y += (diff.y / fabs(diff.y));
 		}
+		if (ft_strchr("2", player->file->map[(int)cont.x][(int)cont.y].tile))
+			player->sprite = true;
 	}
-	return (fabs(hyp.x) < fabs(hyp.y) ? cx : cy);
+	return (fabs(hyp.x) < fabs(hyp.y) ? c[0] : c[1]);
 }
 
 int		rendering(t_char *player)
@@ -89,12 +87,21 @@ int		rendering(t_char *player)
 	int		*tab;
 
 	segment = 0;
+	cont = key_mod(player);
+	if (test_pos(cont, player->file->map))
+	{
+		player->x = cont.x;
+		player->y = cont.y;
+	}
 	mlx_clear_window(player->mlx, player->win);
 	delta_ray = player->dir + (FOV / 2);
 	while (segment <= player->file->win[0])
 	{
+		player->sprite = false;
 		cont = wall_dist(delta_ray, player);
 		apply_ray(cont, player, delta_ray, segment);
+		if (player->sprite == true)
+			sprite(player, cont, segment, delta_ray);
 		segment++;
 		delta_ray -= FOV / player->file->win[0];
 	}

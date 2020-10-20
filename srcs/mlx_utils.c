@@ -29,7 +29,7 @@ int     colum_fill(t_char *player, float wall, long seg, t_tex tex)
 		i++;
 	}
 	return (0);
- }
+}
 
 int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 {
@@ -51,11 +51,7 @@ int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 	y = fmod((!fmod(tex.cnt.x, 1) ? tex.cnt.y : tex.cnt.x) , 1) * tex.width;
 	while (x < (tmp_i + wall) * player->file->win[0])
 	{
-//		printf("lll %i\n", (int)(((float)x / player->file->win[0] - tmp_i) * (float)tex.height / wall));
-		//if (60 == (int)(((float)x / player->file->win[0] - tmp_i) * (float)tex.height / wall))
-        
-		player->image.tab[x] = tex.tab[(int)((int)y  + (int)(((float)x / player->file->win[0] - tmp_i) * (float)tex.height / wall) * tex.width)];
-//		printf("img tab%d\n", (int)(((x / player->file->win[0] - tmp_i) * tex.height / wall)));
+		player->image.tab[x] = tex.tab[(int)((int)y + (int)((float)(x / player->file->win[0] - tmp_i) * (float)(tex.height / wall)) * tex.width)];
 		x += player->file->win[0];
 	}
 	while (x < (player->file->win[1] - 1) * player->file->win[0])
@@ -69,35 +65,26 @@ int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 int		apply_ray(t_point cnt, t_char *player, float ray, int seg)
 {
 	float	hyp;
+	t_tex	tex;
 
 	if (!fmod(cnt.x, 1))
 	{
 		hyp = (fabs(cnt.x - player->x) / cos(ray));
 		if (cos(ray) < 0)
-		{
-			player->file->n_path.cnt = cnt;
-			column_trace(player, hyp, seg, player->file->n_path);
-		}
+			tex = player->file->n_path;
 		else
-		{
-			player->file->so_path.cnt = cnt;
-			column_trace(player, hyp, seg, player->file->so_path);
-		}
+			tex = player->file->so_path;
 	}
 	else
 	{
 		hyp = (fabs(cnt.y - player->y) / sin(ray));
 		if (sin(ray) < 0)
-		{
-			player->file->ea_path.cnt = cnt;
-			column_trace(player, hyp, seg, player->file->ea_path);
-		}
+			tex = player->file->ea_path;
 		else
-		{
-			player->file->we_path.cnt = cnt;
-			column_trace(player, hyp, seg, player->file->we_path);
-		}
+			tex = player->file->we_path;
 	}
+	tex.cnt = cnt;
+	column_trace(player, hyp, seg, tex);
 	return (0);
 }
 

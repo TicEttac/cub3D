@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <math.h>
 # include "../libft/libft.h"
 # include <sys/ipc.h>
@@ -31,6 +32,7 @@
 # define BAD_OUT 0
 
 # define FOV (M_PI / 3)
+# define SPEED 0.2
 
 # define RED 0xFF0000
 # define GREEN 0x00FF00
@@ -51,6 +53,12 @@ typedef struct	s_point
 	float	x;
 	float	y;
 }				t_point;
+
+typedef	struct	s_sprite
+{
+	t_point	pos;
+	int line;
+}				t_sprite;
 
 typedef struct	s_tile
 {
@@ -90,8 +98,20 @@ typedef struct	s_map
 	t_tile	**map;
 }				t_map;
 
+typedef struct  s_keys
+{
+	bool	front;
+	bool	back;
+	bool	wkleft;
+	bool	wkright;
+	bool	left;
+	bool	right;
+}				t_keys;
+
 typedef struct	s_char
 {
+	bool	sprite;
+	t_keys	keys;
 	void	*mlx;
 	void	*win;
 	float	x;
@@ -145,16 +165,30 @@ int		load_sprite(t_char *player);
 
 int		mlx_start(t_char *player);
 int		rendering(t_char *player);
-t_point	wall_dist(float delta_ray, t_char *player);
-int		apply_ray(t_point cnt, t_char *player, float ray, int seg);
-int		column_trace(t_char *player, float hyp, int seg, t_tex tex);
 void	init_image(t_char *player);
 int		load_texture(t_char *player);
 
 /*---------------------------------< HOOKS >--------------------------------*/
 
 int		mlx_hooks(t_char *player);
+int		key_release(int key, t_char *player);
 int		key_hook(int key, t_char *player);
 
+/*---------------------------------< RAY >---------------------------------*/
+
+int		test_pos(t_point next, t_tile **map);
+t_point	key_mod(t_char *player);
+t_point	wall_dist(float delta_ray, t_char *player);
+t_point	wall_dist_no_sprite(float delta_ray, t_char *player);
+t_point	wall_diff(float delta, t_char *player);
+t_point	contact(t_char *player);
+t_point	hypotenuse(t_point diff, float delta);
+int		apply_ray(t_point cnt, t_char *player, float ray, int seg);
+int		column_trace(t_char *player, float hyp, int seg, t_tex tex);
+t_point check_x(float delta, t_point addx);
+t_point check_y(float delta, t_point addy);
+void	sprite(t_char *player, t_point cont, int seg, float ray);
+t_point	sprite_dist(float ray, t_char *player);
+int     colum_fill(t_char *player, float wall, long seg, t_tex tex);
 
 #endif

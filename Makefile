@@ -22,6 +22,10 @@ SRCS =		add.c					\
 			mlx_utils_2.c			\
 			texture.c				\
 			hooks.c					\
+			hooks_utils.c			\
+			ray_utils.c				\
+			ray_utils_2.c			\
+			sprite_utils.c			\
 
 GNL_SRCS =	get_next_line.c			\
 			get_next_line_utils.c	\
@@ -31,7 +35,7 @@ GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 
 #osef des lignes de librairie, ca compile quand meme
 
-CFLAGS = -I includes -framework OpenGL -framework AppKit -o#-o -Wall -Werror -Wextra
+CFLAGS = -g3 -fsanitize=address -I includes -framework OpenGL -framework AppKit -o  #-Wall -Werror -Wextra
 CC = gcc
 LIB = 	libft/libft.a	\
 		./libmlx.a		\
