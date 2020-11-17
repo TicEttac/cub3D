@@ -180,15 +180,16 @@ int		test_pos(t_point next, t_tile **map);
 t_point	key_mod(t_char *player);
 t_point	wall_dist(float delta_ray, t_char *player);
 t_point	wall_dist_no_sprite(float delta_ray, t_char *player);
-t_point	wall_diff(float delta, t_char *player);
-t_point	contact(t_char *player);
+t_point	wall_diff(float delta, t_point player);
+t_point	contact(t_point player);
 t_point	hypotenuse(t_point diff, float delta);
 int		apply_ray(t_point cnt, t_char *player, float ray, int seg);
 int		column_trace(t_char *player, float hyp, int seg, t_tex tex);
 t_point check_x(float delta, t_point addx);
 t_point check_y(float delta, t_point addy);
 void	sprite(t_char *player, t_point cont, int seg, float ray);
-t_point	sprite_dist(float ray, t_char *player);
+t_point	sprite_dist(float ray, t_point cnt, t_tile **map, t_point player);
 int     colum_fill(t_char *player, float wall, long seg, t_tex tex);
+float	test_fuck(float ray, t_point cnt, t_point center, float dist);
 
 #endif

@@ -55,10 +55,7 @@ clean:
 	@make -C minilibX clean
 	@make -C libft clean
 
-fclean:
-	@rm libmlx.a
-	@rm -rf includes/mlx.h
-	@make -C minilibX clean
+fclean: clean
 	@make -C libft fclean
 	@rm -f $(NAME)
 

@@ -66,6 +66,7 @@ int		main(int ac, char **av)
 	if (!parser(av[1], &file))
 		return (0);
 	player = set_character(&file);
+	printf("px%f py%f\n", player.x, player.y);
 	index = print_infos(file);
 	printf("mapH=%d, mapW=%d\n", file.mapH, file.mapW);
 	mlx_start(&player);

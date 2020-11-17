@@ -52,14 +52,16 @@ t_point	wall_dist(float delta, t_char *player)
 	t_point	hyp;
 	t_point	c[2];
 	t_point	cont;
+	int		i;
 
-	diff = wall_diff(delta, player);
-	cont = contact(player);
+	diff = wall_diff(delta, (t_point){player->x, player->y});
+	cont = contact((t_point){player->x, player->y});
 	while (player->file->map[(int)cont.x][(int)cont.y].tile != '1')
 	{
 		hyp = hypotenuse(diff, delta);
 		if (fabs(hyp.x) < fabs(hyp.y))
 		{
+			i = 0;
 			c[0].x = player->x + diff.x;
 			c[0].y = player->y + tan(delta) * diff.x; //y = ... * diff.x is normal
 			cont = check_x(delta, c[0]);
@@ -67,12 +69,13 @@ t_point	wall_dist(float delta, t_char *player)
 		}
 		else
 		{
+			i = 1;
 			c[1].x = player->x + diff.y / tan(delta);
 			c[1].y = player->y + diff.y;
 			cont = check_y(delta, c[1]);
 			diff.y += (diff.y / fabs(diff.y));
 		}
-		if (ft_strchr("2", player->file->map[(int)cont.x][(int)cont.y].tile))
+		if (player->file->map[(int)c[i].x][(int)c[i].y].tile == '2')
 			player->sprite = true;
 	}
 	return (fabs(hyp.x) < fabs(hyp.y) ? c[0] : c[1]);

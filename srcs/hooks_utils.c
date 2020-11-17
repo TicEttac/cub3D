@@ -42,7 +42,7 @@ int		key_release(int key, t_char *player)
 	if (key == S_KEY)
 		player->keys.back = false;
 	if (key == D_KEY)
-		player->keys.wkright = false;	
+		player->keys.wkright = false;
 	if (key == RIGHT_KEY)
 		player->keys.right = false;
 	if (key == LEFT_KEY)

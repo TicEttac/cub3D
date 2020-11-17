@@ -1,50 +1,30 @@
 #include "cub3D.h"
 
-static float	test_fuck(t_char *player, t_point cnt, t_point center, float ray)
-{
-	return (0.0);
-	//if (cos(ray))
-}
 static float	fdist(float x, float y, float to_x, float to_y)
 {
 	return (sqrtf(powf(x - to_x, 2) + powf(y - to_y, 2)));
 }
 
-static int		calc_line(t_char *player, t_point cnt, int seg, float ray)
+static int		calc_line(t_char *player, t_point *cnt, int seg, float ray)
 {
 	float		coef_va;
 	float		coef_vj;
 	float		vj_b;
 	float		va_b;
 	float		dist;
-	int			line;
 	t_point		center;
-	t_point		cont;
 
-	coef_va = (cnt.y - player->y) / (cnt.x - player->x);
-	va_b = cnt.y - (coef_va * cnt.x);
+	coef_va = (cnt->y - player->y) / (cnt->x - player->x);
+	va_b = cnt->y - (coef_va * cnt->x);
 	coef_vj = -(1 / coef_va);
-	center.x = cnt.x - fmod(cnt.x, 1) + 0.5;
-	center.y = cnt.y - fmod(cnt.y, 1) + 0.5;
+	center.x = (int)(cnt->x) + 0.5;
+	center.y = (int)(cnt->y) + 0.5;
 	vj_b = center.y - (coef_vj * center.x);
-	cont.x = (vj_b - va_b) / (coef_va - coef_vj);
-	cont.y = coef_va * (vj_b - va_b) / (coef_va - coef_vj) + va_b;
-	dist = fdist(center.x, center.y, cont.x, cont.y);
-	//printf("dist %f\n", dist);
-	line = (int)((dist + test_fuck(player, cont, center, ray)) * player->file->sp_path.width);
-	return (line);
-}
-
-static void		swap_floats(float *x, float *y, float *to_x, float *to_y)
-{
-	t_point		tmp;
-
-	tmp.x = *x;
-	tmp.y = *y;
-	*x = *to_x;
-	*y = *to_y;
-	*to_x = tmp.x;
-	*to_y = tmp.y;
+	cnt->x = (vj_b - va_b) / (coef_va - coef_vj);
+	cnt->y = (coef_va * (vj_b - va_b)) / (coef_va - coef_vj) + va_b;
+	if ((dist = fdist(center.x, center.y, cnt->x, cnt->y)) > 0.5)
+		return (-1);
+	return ((int)(test_fuck(ray, *cnt, center, dist) * player->file->sp_path.width));
 }
 
 void			print_sprite(t_sprite sp, t_char *player, int seg, t_tex tex)
@@ -61,27 +41,45 @@ void			print_sprite(t_sprite sp, t_char *player, int seg, t_tex tex)
 		return ((void)colum_fill(player, wall, seg, tex));
 	x = seg;
 	while (x < ((player->file->win[1] - wall) / 2) * player->file->win[0])
-	{
-		player->image.tab[x] = player->file->c_color[0];
 		x += player->file->win[0];
-	}
 	tmp_i = x / player->file->win[0];
-	y = fmod((!fmod(tex.cnt.x, 1) ? tex.cnt.y : tex.cnt.x) , 1) * tex.width;
+	y = sp.line;
 	while (x < (tmp_i + wall) * player->file->win[0])
 	{
-		player->image.tab[x] = tex.tab[(int)((int)y + (int)((float)(x / player->file->win[0] - tmp_i) * (float)(tex.height / wall)) * tex.width)];
+		if (tex.tab[(int)((int)y + (int)((float)(x / player->file->win[0] - tmp_i) * (float)(tex.height / wall)) * tex.width)])
+			player->image.tab[x] = tex.tab[(int)((int)y + (int)((float)(x / player->file->win[0] - tmp_i) * (float)(tex.height / wall)) * tex.width)];
 		x += player->file->win[0];
 	}
 	while (x < (player->file->win[1] - 1) * player->file->win[0])
-	{
-		player->image.tab[x] = player->file->f_color[0];
 		x += player->file->win[0];
+}
+
+static t_point	past_sprite(t_sprite sp, float delta)
+{
+	t_point	diff;
+	t_point	hyp;
+	t_point	c[2];
+
+	diff = wall_diff(delta, sp.pos);
+	//printf("diff %f %f\n", diff.x, diff.y);
+	hyp = hypotenuse(diff, delta);
+	//printf("hyp %f %f\n", hyp.x, hyp.y);
+	if (fabs(hyp.x) < fabs(hyp.y))
+	{
+		c[0].x = sp.pos.x + diff.x;
+		c[0].y = sp.pos.y + tan(delta) * diff.x; //y = ... * diff.x is normal
+		return (c[0]);
+	}
+	else
+	{
+		c[1].x = sp.pos.x + diff.y / tan(delta);
+		c[1].y = sp.pos.y + diff.y;
+		return (c[1]);
 	}
 }
 
 void			sprite(t_char *player, t_point cnt, int seg, float ray)
 {
-	int			line;
 	float		tot;
 	float		part;
 	t_sprite	sp;
@@ -90,19 +88,23 @@ void			sprite(t_char *player, t_point cnt, int seg, float ray)
 	wall.x = cnt.x;
 	wall.y = cnt.y;
 	tot = fdist(player->x, player->y, cnt.x, cnt.y);
-	swap_floats(&cnt.x, &cnt.y, &player->x, &player->y);
 	part = 0.0;
+	//printf("cnt %f %f\n", cnt.x, cnt.y);
 	while ((part / tot) < 1.0)
 	{
-		sp.pos = sprite_dist(ray + M_PI, player);
-		part = fdist(sp.pos.x, sp.pos.y, wall.x, wall.y);
-		printf("part=%f, tot=%f\n", part, tot);
-		swap_floats(&cnt.x, &cnt.y, &player->x, &player->y);
-		sp.line = calc_line(player, cnt, seg, ray);
+		//printf("A pos %f %f\n", sp.pos.x, sp.pos.y);
+		sp.pos = sprite_dist(ray + M_PI, cnt, player->file->map, (t_point){player->x, player->y});
+		if (((int)sp.pos.x == (int)player->x && (int)sp.pos.y == (int)player->y) || sp.pos.x < 0 || sp.pos.y < 0
+											|| (player->file->map[(int)sp.pos.x][(int)sp.pos.y].tile == '1'))
+			return ;
+		//printf("B pos %f %f\n", sp.pos.x, sp.pos.y);
+		if ((sp.line = calc_line(player, &sp.pos, seg, ray + M_PI)) == -1)
+			return ;
 		player->file->sp_path.cnt = sp.pos;
-		cnt = sp.pos;
 		print_sprite(sp, player, seg, player->file->sp_path);
-		swap_floats(&cnt.x, &cnt.y, &player->x, &player->y);
+		part = fdist(sp.pos.x, sp.pos.y, wall.x, wall.y);
+		//printf("C pos %f %f\n", sp.pos.x, sp.pos.y);
+		sp.pos = past_sprite(sp, ray + M_PI);
+		cnt = sp.pos;
 	}
-	swap_floats(&cnt.x, &cnt.y, &player->x, &player->y);
 }
