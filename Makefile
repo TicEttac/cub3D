@@ -35,22 +35,23 @@ GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 
 #osef des lignes de librairie, ca compile quand meme
 
-CFLAGS = -g3 -fsanitize=address -I includes -framework OpenGL -framework AppKit -o  #-Wall -Werror -Wextra
+CFLAGS = -g3 -fsanitize=address -I includes -L lib -lXext -lX11 -o  #-Wall -Werror -Wextra
 CC = gcc
-LIB = 		libft/libft.a	\
-		./libmlx.a	\
+LIB = 		lib/libft.a	\
+		lib/libmlx.a	\
 
 all:	$(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ./libft all
 	@make -C minilibX
-	@mv minilibX/libmlx.a .
+	@mv libft/libft.a ./lib
+	@mv minilibX/libmlx.a ./lib
 	@cp minilibX/mlx.h ./includes
-	@${CC} ${CFLAGS} ${NAME} ${GNL_OBJS} ${OBJS} ${LIB} #&& printf "%-60b\r" "$(_GREEN)$(ECHO)$(_CYAN) Compilation $@"
+	@${CC} ${CFLAGS} ${NAME} ${GNL_OBJS} ${OBJS} #&& printf "%-60b\r" "$(_GREEN)$(ECHO)$(_CYAN) Compilation $@"
 
 clean:
-	@rm -rf libmlx.a
+	@rm -rf lib/*
 	@rm -rf includes/mlx.h
 	@make -C minilibX clean
 	@make -C libft clean
