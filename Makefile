@@ -12,23 +12,23 @@
 
 NAME = cub3d
 
-SRCS =		add.c					\
-			add_redirect.c			\
-			parser.c				\
-			parser_next.c			\
-			main.c					\
-			mlx_start.c				\
-			mlx_utils.c				\
-			mlx_utils_2.c			\
-			texture.c				\
-			hooks.c					\
-			hooks_utils.c			\
-			ray_utils.c				\
-			ray_utils_2.c			\
-			sprite_utils.c			\
+SRCS =		add.c		\
+		add_redirect.c	\
+		parser.c	\
+		parser_next.c	\
+		main.c		\
+		mlx_start.c	\
+		mlx_utils.c	\
+		mlx_utils_2.c	\
+		texture.c	\
+		hooks.c		\
+		hooks_utils.c	\
+		ray_utils.c	\
+		ray_utils_2.c	\
+		sprite_utils.c	\
 
-GNL_SRCS =	get_next_line.c			\
-			get_next_line_utils.c	\
+GNL_SRCS =	get_next_line.c		\
+		get_next_line_utils.c	\
 
 OBJS = $(addprefix srcs/, $(SRCS))
 GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
@@ -37,8 +37,8 @@ GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 
 CFLAGS = -g3 -fsanitize=address -I includes -framework OpenGL -framework AppKit -o  #-Wall -Werror -Wextra
 CC = gcc
-LIB = 	libft/libft.a	\
-		./libmlx.a		\
+LIB = 		libft/libft.a	\
+		./libmlx.a	\
 
 all:	$(NAME)
 
