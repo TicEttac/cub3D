@@ -25,8 +25,8 @@
 # include "../libft/libft.h"
 # include <sys/ipc.h>
 # include <sys/shm.h>
-# include "get_next_line.h"
-# include "mlx.h"
+# include "./get_next_line.h"
+# include <mlx.h>
 
 # define GOOD_OUT 1
 # define BAD_OUT 0
