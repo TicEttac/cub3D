@@ -22,17 +22,17 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <math.h>
-# include "../libft/libft.h"
 # include <sys/ipc.h>
 # include <sys/shm.h>
-# include "./get_next_line.h"
+# include "../libft/libft.h"
+# include "get_next_line.h"
 # include <mlx.h>
 
 # define GOOD_OUT 1
 # define BAD_OUT 0
 
 # define FOV (M_PI / 3)
-# define SPEED 0.2
+# define SPEED 0.3
 
 # define RED 0xFF0000
 # define GREEN 0x00FF00
@@ -40,6 +40,15 @@
 # define YELLOW 0xFFFF00
 # define BLACK 0x000000
 
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
+# define ESC_KEY 65307
+# define LEFT_KEY 65361
+# define RIGHT_KEY 65363
+
+/*		macOS keys
 # define W_KEY 13
 # define A_KEY 0
 # define S_KEY 1
@@ -47,7 +56,7 @@
 # define ESC_KEY 53
 # define LEFT_KEY 123
 # define RIGHT_KEY 124
-
+*/
 typedef struct	s_point
 {
 	float	x;

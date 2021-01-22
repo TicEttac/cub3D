@@ -35,7 +35,7 @@ t_point	key_mod(t_char *player)
 
 int		key_release(int key, t_char *player)
 {
-		if (key == W_KEY)
+	if (key == W_KEY)
 		player->keys.front = false;
 	if (key == A_KEY)
 		player->keys.wkleft = false;

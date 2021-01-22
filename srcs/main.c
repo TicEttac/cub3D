@@ -17,7 +17,7 @@ t_char	set_character(t_map *file)
 {
 	t_char	player;
 	char	card;
-
+	ft_bzero(&player, sizeof(t_char));
 	card = file->map[(int)file->start[0]][(int)file->start[1]].content;
 	player.x = file->start[0] + 0.5;
 	player.y = file->start[1] + 0.5;

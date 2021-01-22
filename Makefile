@@ -46,16 +46,15 @@ all:	$(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ./libft all
-#	@make -C minilibX
-	@mv libft/libft.a .
-#	@mv minilibX/libmlx.a /usr/local/lib
-#	@cp minilibX/mlx.h ./includes
+	@make -C minilibX
+	@mv libft/libft.a lib/
+	@mv minilibX/libmlx.a lib/
+	@cp minilibX/mlx.h ./includes
 	@${CC} ${CFLAGS} ${NAME} ${GNL_OBJS} ${OBJS} ${LIB} #&& printf "%-60b\r" "$(_GREEN)$(ECHO)$(_CYAN) Compilation $@"
 
 clean:
-#	@rm -rf lib/*
-#	@rm -rf /usr/local/lib/libmlx.a
-#	@rm -rf includes/mlx.h
+	@rm -rf lib/*
+	@rm -rf includes/mlx.h
 	@make -C minilibX clean
 	@make -C libft clean
 
@@ -70,4 +69,5 @@ git: fclean
 	@git commit -m "$@"
 	@git push
 
+.SILENT: all clean fclean re
 .PHONY: all clean fclean re

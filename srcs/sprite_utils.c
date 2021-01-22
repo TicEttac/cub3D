@@ -89,21 +89,21 @@ void			sprite(t_char *player, t_point cnt, int seg, float ray)
 	wall.y = cnt.y;
 	tot = fdist(player->x, player->y, cnt.x, cnt.y);
 	part = 0.0;
-	//printf("cnt %f %f\n", cnt.x, cnt.y);
+	printf("cnt %f %f\n", cnt.x, cnt.y);
 	while ((part / tot) < 1.0)
 	{
-		//printf("A pos %f %f\n", sp.pos.x, sp.pos.y);
+		printf("A pos %f %f\n", sp.pos.x, sp.pos.y);
 		sp.pos = sprite_dist(ray + M_PI, cnt, player->file->map, (t_point){player->x, player->y});
 		if (((int)sp.pos.x == (int)player->x && (int)sp.pos.y == (int)player->y) || sp.pos.x < 0 || sp.pos.y < 0
 											|| (player->file->map[(int)sp.pos.x][(int)sp.pos.y].tile == '1'))
 			return ;
-		//printf("B pos %f %f\n", sp.pos.x, sp.pos.y);
+		printf("B pos %f %f\n", sp.pos.x, sp.pos.y);
 		if ((sp.line = calc_line(player, &sp.pos, seg, ray + M_PI)) == -1)
 			return ;
 		player->file->sp_path.cnt = sp.pos;
 		print_sprite(sp, player, seg, player->file->sp_path);
 		part = fdist(sp.pos.x, sp.pos.y, wall.x, wall.y);
-		//printf("C pos %f %f\n", sp.pos.x, sp.pos.y);
+		printf("C pos %f %f\n", sp.pos.x, sp.pos.y);
 		sp.pos = past_sprite(sp, ray + M_PI);
 		cnt = sp.pos;
 	}
