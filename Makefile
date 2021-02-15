@@ -12,20 +12,21 @@
 
 NAME = cub3d
 
-SRCS =		add.c		\
-		add_redirect.c	\
-		parser.c	\
-		parser_next.c	\
-		main.c		\
-		mlx_start.c	\
-		mlx_utils.c	\
-		mlx_utils_2.c	\
-		texture.c	\
-		hooks.c		\
-		hooks_utils.c	\
-		ray_utils.c	\
-		ray_utils_2.c	\
-		sprite_utils.c	\
+SRCS =		add.c			\
+		add_redirect.c		\
+		parser.c		\
+		parser_next.c		\
+		main.c			\
+		mlx_start.c		\
+		mlx_utils.c		\
+		mlx_utils_2.c		\
+		texture.c		\
+		hooks.c			\
+		hooks_utils.c		\
+		ray_utils.c		\
+		ray_utils_2.c		\
+		sprite_utils.c		\
+		sprite_utils_2.c	\
 
 GNL_SRCS =	get_next_line.c		\
 		get_next_line_utils.c	\

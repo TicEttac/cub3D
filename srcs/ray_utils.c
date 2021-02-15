@@ -4,8 +4,8 @@ t_point	wall_diff(float delta, t_point player)
 {
 	t_point	res;
 
-	res.x = (float)(cos(delta) > 0) - fmod(player.x, 1);
-	res.y = (float)(sin(delta) > 0) - fmod(player.y, 1);
+	res.x = (float)(cos(delta) > 0) - fmod(player.x, 1.0);
+	res.y = (float)(sin(delta) > 0) - fmod(player.y, 1.0);
 	return (res);
 }
 

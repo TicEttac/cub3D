@@ -1,3 +1,5 @@
+map -> singleton
+
 pas encore fait :
 	error_map avec agruments variadiques (free tout)
 	error_map qui donne la ligne de l'erreur

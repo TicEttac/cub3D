@@ -47,25 +47,21 @@ int		print_infos(t_map file)
 		index++;
 	}
 	i = 0;
-/*	printf("\nwin x%d y%d\n", file.win[0], file.win[1]);
-	printf("f color r%d g%d b%d\n", file.f_color[0],
-	file.f_color[1], file.f_color[2]);
-	printf("c color r%d g%d b%d\n", file.c_color[0],
-	file.c_color[1], file.c_color[2]);
-*/	return (index);
+	return (index);
 }
 
 int		main(int ac, char **av)
 {
-	t_map	file;
+	t_map		file;
 	int		index;
-	t_char	player;
+	t_char		player;
 
-	if (ac < 2)
-		return (error_flag("No configuration path.\n"));
+	if (ac < 2 || ac > 3 || (ac == 3 && ft_strcmp(av[2], "--save")))
+		return (error_flag("Wrong arguments.\n"));
 	if (!parser(av[1], &file))
 		return (0);
 	player = set_character(&file);
+	player.save = (ac == 3 && !ft_strcmp(av[2], "--save")) ? 1 : 0;
 	printf("px%f py%f\n", player.x, player.y);
 	index = print_infos(file);
 	printf("mapH=%d, mapW=%d\n", file.mapH, file.mapW);

@@ -100,5 +100,6 @@ void	init_image(t_char *player)
 	player->image.sl = player->file->win[0];
 	player->image.tab = (int*)mlx_get_data_addr(player->image.img, &bpp,
 	&player->image.sl, &endian);
+	printf("Save stat %d\n", player->save);
 	rendering(player);
 }

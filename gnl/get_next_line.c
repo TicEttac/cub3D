@@ -67,7 +67,7 @@ int		make_str(int fd, char **end, char **line)
 int		get_next_line(int fd, char **line)
 {
 	static	char	*end = NULL;
-	int				ret;
+	int		ret;
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);

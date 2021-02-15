@@ -83,11 +83,11 @@ t_point	wall_dist(float delta, t_char *player)
 
 int		rendering(t_char *player)
 {
-	int		segment;
+	int	segment;
 	float	delta_ray;
 	t_point	cont;
 	void	*img;
-	int		*tab;
+	int	*tab;
 
 	segment = 0;
 	cont = key_mod(player);
@@ -108,6 +108,9 @@ int		rendering(t_char *player)
 		segment++;
 		delta_ray -= FOV / player->file->win[0];
 	}
+	printf("player %d\n", player->save);
+	if (player->save == 1)
+		img_bmp(player);
 	mlx_put_image_to_window(player->mlx, player->win, player->image.img, 0, 0);
 	return (0);
 }
