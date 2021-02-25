@@ -34,9 +34,9 @@
 # define FOV (M_PI / 3)
 # define SPEED 0.3
 
-# define RED 0x0f00
-# define GREEN 0x00f0
-# define BLUE 0x000f
+# define RED 0x00ff0000
+# define GREEN 0x0000ff00
+# define BLUE 0x000000ff
 
 # define W_KEY 119
 # define A_KEY 97

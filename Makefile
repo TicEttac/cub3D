@@ -61,6 +61,7 @@ clean:
 
 fclean: clean
 	@make -C libft fclean
+	@rm -rf save.bmp
 	@rm -f $(NAME)
 
 re: fclean all

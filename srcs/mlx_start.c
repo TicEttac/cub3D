@@ -108,7 +108,6 @@ int		rendering(t_char *player)
 		segment++;
 		delta_ray -= FOV / player->file->win[0];
 	}
-	printf("player %d\n", player->save);
 	if (player->save == 1)
 		img_bmp(player);
 	mlx_put_image_to_window(player->mlx, player->win, player->image.img, 0, 0);
