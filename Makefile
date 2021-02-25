@@ -48,13 +48,14 @@ all:	$(NAME)
 $(NAME): $(OBJS)
 	@make -C ./libft all
 	@make -C minilibX
+	@mkdir lib
 	@mv libft/libft.a lib/
 	@mv minilibX/libmlx.a lib/
 	@cp minilibX/mlx.h ./includes
 	@${CC} ${CFLAGS} ${NAME} ${GNL_OBJS} ${OBJS} ${LIB} #&& printf "%-60b\r" "$(_GREEN)$(ECHO)$(_CYAN) Compilation $@"
 
 clean:
-	@rm -rf lib/*
+	@rm -rf lib/
 	@rm -rf includes/mlx.h
 	@make -C minilibX clean
 	@make -C libft clean

@@ -22,9 +22,23 @@ void		bmp_fheader(void *bmp, t_map *map)
 
 	bm = bmp;
 	ft_strcpy(bm, "BM");
-	header = (int *)(bm + 2);
-	header[0] = (55 + (map->win[0] * map->win[1] * 4));
+	header = (int *)(bm + sizeof(char) * 2);
+	header[0] = (55 + (map->win[0] * map->win[1]));
 	header[2] = 55;
+}
+
+void		bmp_info_header(void *bmp, t_map *map)
+{
+	char	*bm;
+	int	*header;
+
+	bm = (char *)(bmp + 15);
+	bm[14] = (unsigned char)(24);
+	header = (int *)(bm);
+	header[0] = 40;
+	header[1] = map->win[0];
+	header[2] = map->win[1];
+	
 }
 
 void		img_to_bmp(void *bmp, t_char *player)
@@ -58,20 +72,6 @@ void		fill_bmp(char *bmp, int size, int fd)
 		write(fd, &bmp[i], 1);
 		i++;
 	}
-}
-
-void		bmp_info_header(void *bmp, t_map *map)
-{
-	char	*bm;
-	int	*header;
-
-	bm = (char *)(bmp + 14);
-	bm[14] = (unsigned char)(24);
-	header = (int *)(bm);
-	header[0] = 40;
-	header[1] = map->win[0];
-	header[2] = map->win[1];
-	
 }
 
 void		img_bmp(t_char *player)
