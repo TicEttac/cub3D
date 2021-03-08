@@ -48,7 +48,7 @@ all:	$(NAME)
 $(NAME): $(OBJS)
 	@make -C ./libft all
 	@make -C minilibX
-	@mkdir lib
+	@mkdir -p lib
 	@mv libft/libft.a lib/
 	@mv minilibX/libmlx.a lib/
 	@cp minilibX/mlx.h ./includes

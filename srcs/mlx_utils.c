@@ -97,7 +97,7 @@ void	init_image(t_char *player)
 	endian = 0;
 	player->image.img = mlx_new_image(player->mlx, player->file->win[0]
 	, player->file->win[1]);
-	player->image.sl = player->file->win[0];
+	//player->image.sl = player->file->win[0];
 	player->image.tab = (int*)mlx_get_data_addr(player->image.img, &bpp,
 	&player->image.sl, &endian);
 	printf("Save stat %d\n", player->save);
