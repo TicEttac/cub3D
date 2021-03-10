@@ -17,6 +17,7 @@ t_char	set_character(t_map *file)
 {
 	t_char	player;
 	char	card;
+
 	ft_bzero(&player, sizeof(t_char));
 	card = file->map[(int)file->start[0]][(int)file->start[1]].content;
 	player.x = file->start[0] + 0.5;
@@ -30,8 +31,8 @@ t_char	set_character(t_map *file)
 
 int		print_infos(t_map file)
 {
-	int		index;
-	int		i;
+	int	index;
+	int	i;
 
 	index = 0;
 	i = 0;
@@ -52,9 +53,9 @@ int		print_infos(t_map file)
 
 int		main(int ac, char **av)
 {
-	t_map		file;
 	int		index;
-	t_char		player;
+	t_map	file;
+	t_char	player;
 
 	if (ac < 2 || ac > 3 || (ac == 3 && ft_strcmp(av[2], "--save")))
 		return (error_flag("Wrong arguments.\n"));

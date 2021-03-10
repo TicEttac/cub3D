@@ -3,86 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_next.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nisauvig <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nisauvig <nisauvig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 19:25:01 by nisauvig          #+#    #+#             */
-/*   Updated: 2020/08/07 01:04:23 by nisauvig         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:57:00 by nisauvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int		ft_parse_map(char **conf_file, int size, int index, t_map *file)
-{
-	int		i;
-	int		i_map;
-
-	i = 0;
-	i_map = 0;
-	while (conf_file[index][i] != '1' && conf_file[index][i] != '0')
-	{
-		if (index >= size)
-		{
-			free_dtab(conf_file, size);
-			return (error_flag("No map in configuration file.\n"));
-		}
-		i = conf_file[index][i] == '\0' ? 0 : i + 1;
-		i == 0 ? index++ : 0;
-	}
-	if (!(file->map = malloc(sizeof(t_tile *) * (size - index + 1))))
-	{
-		free_dtab(conf_file, size);
-		return (error_flag("Malloc error.\n"));
-	}
-	file->mapH = size - index - 2; //"-2" = start at 1 and last line is \0
-	while (index < size)
-	{
-		if (!(file->map[i_map] = malloc(sizeof(t_tile)
-						* (ft_strlen(conf_file[index]) + 1))))
-		{
-			free_dtab(conf_file, size);
-			return (error_flag("Malloc error.\n"));
-		}
-		i = 0;
-		while (conf_file[index][i] != '\0')
-		{
-			if (ft_strchr("NSWET ", (int)conf_file[index][i]))
-			{
-				if (ft_strchr("NSWE", (int)conf_file[index][i]))
-				{
-					if (file->start[0] != 0)
-						return (error_flag("Multiple entry points.\n"));
-					file->start[0] = (float)i_map;
-					file->start[1] = (float)i;
-				}
-				file->map[i_map][i].tile = '0';
-				file->map[i_map][i].content = conf_file[index][i];
-			}
-			else if (ft_strchr("210", (int)conf_file[index][i]))
-			{
-				file->map[i_map][i].tile = conf_file[index][i];
-				file->map[i_map][i].content = '0';
-			}
-			else
-			{
-				free_dtab(conf_file, size);
-				return (error_flag("Erroneous map.\n"));
-			}
-			i++;
-		}
-		file->mapW = i - 1 > file->mapW ? i - 1 : file->mapW;
-		file->map[i_map][i].tile = '\0';
-		file->map[i_map][i].content = '\0';
-		index++;
-		i_map++;
-	}
-	free_dtab(conf_file, size - 1);
-	if (!(file->map[i_map] = malloc(sizeof(t_tile))))
-		return (error_flag("Malloc error.\n"));
-	file->map[i_map][0].tile = '\0';
-	file->map[i_map][0].content = '\0';
-	return (map_checking(file->map, file->start[0], file->start[1]));
-}
 
 int		ft_fullfilled(t_map *file)
 {
@@ -107,8 +35,8 @@ int		ft_fullfilled(t_map *file)
 
 void	print_map(t_tile **map)
 {
-	int		x;
-	int		y;
+	int	x;
+	int	y;
 
 	x = 0;
 	while (map[x][0].tile != '\0')
@@ -123,6 +51,27 @@ void	print_map(t_tile **map)
 		x++;
 	}
 	printf("\n");
+}
+
+int		get_tight(char *s, char **dtab, int size)
+{
+	free_dtab(dtab, size);
+	error_flag(s);
+	return (BAD_OUT);
+}
+
+int		straw_man(int *index, int *i_map, char **conf_file, t_map *file)
+{
+	int	i;
+
+	if ((i = translate_map(*index, *i_map, conf_file, file)) == BAD_OUT)
+		return (BAD_OUT);
+	file->mapW = i - 1 > file->mapW ? i - 1 : file->mapW;
+	file->map[*i_map][i].tile = '\0';
+	file->map[*i_map][i].content = '\0';
+	*index += 1;
+	*i_map += 1;
+	return (GOOD_OUT);
 }
 
 int		map_checking(t_tile **map, int x, int y)

@@ -24,7 +24,7 @@ void	key_press(int key, t_char *player)
 		player->keys.wkright = true;
 }
 
-int	test_pos(t_point next, t_tile **map)
+int		test_pos(t_point next, t_tile **map)
 {
 	if (map[(int)(next.x - fmod(next.x, 1))]
 			[(int)(next.y - fmod(next.y, 1))].tile == ' ')
@@ -32,7 +32,7 @@ int	test_pos(t_point next, t_tile **map)
 	return (0);
 }
 
-int	clean_exit(t_char *player)
+int		clean_exit(t_char *player)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ int	clean_exit(t_char *player)
 	return (0);
 }
 
-int	key_hook(int key, t_char *player)
+int		key_hook(int key, t_char *player)
 {
 	t_point	next;
 
@@ -64,13 +64,13 @@ int	key_hook(int key, t_char *player)
 	return (rendering(player));
 }
 
-int	mlx_hooks(t_char *player)
+int		mlx_hooks(t_char *player)
 {
 	int	ret;
 
 	ret = 0;
-	ret = mlx_hook(player->win, 2, (1L<<0), &key_hook, player);
-	ret = mlx_hook(player->win, 3, (1L<<1), &key_release, player);
+	ret = mlx_hook(player->win, 2, (1L << 0), &key_hook, player);
+	ret = mlx_hook(player->win, 3, (1L << 1), &key_release, player);
 	mlx_loop_hook(player->mlx, &rendering, player);
 	return (ret);
 }

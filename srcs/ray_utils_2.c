@@ -1,8 +1,16 @@
 #include "cub3D.h"
 
+int		coloring(int color, int s[2], int bound, t_char *player)
+{
+	while (s[0] < bound)
+	{
+		player->image.tab[s[0]] = color;
+		s[0] += s[1];
+	}
+	return (s[0]);
+}
 
-
-float		test_fuck(float delta, t_point cnt, t_point center, float dist)
+float	test_fuck(float delta, t_point cnt, t_point center, float dist)
 {
 	t_point	diff;
 	t_point	hyp;
@@ -19,14 +27,13 @@ float		test_fuck(float delta, t_point cnt, t_point center, float dist)
 			return (dist + 0.5);
 		else
 			return (0.5 - dist);
-	else
-		if (cos(delta) < 0.0)
-			if (cnt.y <= center.y)
-				return (dist + 0.5);
-			else
-				return (0.5 - dist);
-		else if (cnt.y < center.y)
-			return (0.5 - dist);
-		else
+	else if (cos(delta) < 0.0)
+		if (cnt.y <= center.y)
 			return (dist + 0.5);
+		else
+			return (0.5 - dist);
+	else if (cnt.y < center.y)
+		return (0.5 - dist);
+	else
+		return (dist + 0.5);
 }

@@ -14,11 +14,11 @@
 
 int		parser(char *path_to_conf, t_map *file)
 {
-	int						map_fd;
-	int						line_n;
-	char						*line;
-	int						gnl;
-	char						**conf_file;
+	int		map_fd;
+	int		line_n;
+	char	*line;
+	int		gnl;
+	char	**conf_file;
 
 	conf_file = NULL;
 	line = NULL;
@@ -62,8 +62,8 @@ int		error_flag(char *verbosity)
 
 char	**one_more_line(char **tab, char *to_add, int index)
 {
-	int						i;
-	char						**return_tab;
+	int		i;
+	char	**return_tab;
 
 	i = 0;
 	if (!(return_tab = malloc(sizeof(char*) * (index + 1))))

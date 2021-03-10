@@ -5,7 +5,7 @@ int		load_sprite(t_char *player)
 	char	*path;
 	int		bpp;
 	int		sl;
-	int en;
+	int		en;
 
 	if (!(path = ft_strdup((char *)player->file->sp_path.tex)))
 		return (error_flag("Texture malloc error.\n"));
@@ -26,7 +26,7 @@ int		load_west(t_char *player)
 	char	*path;
 	int		bpp;
 	int		sl;
-	int en;
+	int		en;
 
 	if (!(path = ft_strdup((char *)player->file->we_path.tex)))
 		return (error_flag("Texture malloc error.\n"));
@@ -47,7 +47,7 @@ int		load_east(t_char *player)
 	char	*path;
 	int		bpp;
 	int		sl;
-	int en;
+	int		en;
 
 	if (!(path = ft_strdup((char *)player->file->ea_path.tex)))
 		return (error_flag("Texture malloc error.\n"));
@@ -68,7 +68,7 @@ int		load_north(t_char *player)
 	char	*path;
 	int		bpp;
 	int		sl;
-	int en;
+	int		en;
 
 	if (!(path = ft_strdup((char *)player->file->n_path.tex)))
 		return (error_flag("Texture malloc error.\n"));
@@ -89,7 +89,7 @@ int		load_south(t_char *player)
 	char	*path;
 	int		bpp;
 	int		sl;
-	int en;
+	int		en;
 
 	if (!(path = ft_strdup((char *)player->file->so_path.tex)))
 		return (error_flag("Texture malloc error.\n"));

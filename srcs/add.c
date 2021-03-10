@@ -64,19 +64,17 @@ int		add_floor(char *line, t_map *file, char *id)
 	{
 		if (!(ft_strchr("0123456789 ,\t", line[i])))
 			return (error_flag("Floor color error.\n"));
-		if (ft_strchr(" ,\t", line[i]))
-		{
-			swich++;
+		if (ft_strchr(" ,\t", line[i]) && (swich += 1))
 			while (ft_strchr(" ,\t", line[i + 1]))
 				i++;
-		}
 		else
 			file->f_color[swich] = (file->f_color[swich] * 10) + line[i] - 48;
 		i++;
 	}
 	if (swich < 2)
 		return (error_flag("Not enough arguments on floor color.\n"));
-	file->f_color[0] = 65536 * file->f_color[0] + 256 * file->f_color[1] + file->f_color[2];
+	file->f_color[0] = 65536 * file->f_color[0]
+	+ 256 * file->f_color[1] + file->f_color[2];
 	return (GOOD_OUT);
 }
 
@@ -93,19 +91,17 @@ int		add_ceiling(char *line, t_map *file, char *id)
 	{
 		if (!(ft_strchr("0123456789 ,\t", line[i])))
 			return (error_flag("Ceiling color error.\n"));
-		if (ft_strchr(" ,\t", line[i]))
-		{
-			swich++;
+		if (ft_strchr(" ,\t", line[i]) && (swich += 1))
 			while (ft_strchr(" ,\t", line[i + 1]))
 				i++;
-		}
 		else
 			file->c_color[swich] = file->c_color[swich] * 10 + (line[i] - 48);
 		i++;
 	}
 	if (swich < 2)
 		return (error_flag("Not enough arguments on ceiling color.\n"));
-	file->c_color[0] = 65536 * file->c_color[0] + 256 * file->c_color[1] + file->c_color[2];
+	file->c_color[0] = 65536 * file->c_color[0]
+	+ 256 * file->c_color[1] + file->c_color[2];
 	return (GOOD_OUT);
 }
 

@@ -1,3 +1,4 @@
+
 #include "cub3D.h"
 
 int		load_texture(t_char *player)
@@ -15,10 +16,10 @@ int		load_texture(t_char *player)
 	return (GOOD_OUT);
 }
 
-void		bmp_fheader(void *bmp, t_map *map)
+void	bmp_fheader(void *bmp, t_map *map)
 {
 	char	*bm;
-	int	*header;
+	int		*header;
 
 	bm = bmp;
 	ft_strcpy(bm, "BM");
@@ -27,10 +28,10 @@ void		bmp_fheader(void *bmp, t_map *map)
 	header[2] = 55;
 }
 
-void		bmp_info_header(void *bmp, t_map *map)
+void	bmp_info_header(void *bmp, t_map *map)
 {
 	char	*bm;
-	int	*header;
+	int		*header;
 
 	bm = (char *)(bmp + sizeof(char) * 14);
 	bm[14] = (unsigned char)(24);
@@ -38,14 +39,13 @@ void		bmp_info_header(void *bmp, t_map *map)
 	header[0] = 40;
 	header[1] = map->win[0];
 	header[2] = map->win[1];
-	
 }
 
-void		img_to_bmp(void *bmp, t_char *player)
+void	img_to_bmp(void *bmp, t_char *player)
 {
-	int	i;
-	int	j;
-	int 	tmp;
+	int		i;
+	int		j;
+	int		tmp;
 	char	*head;
 
 	tmp = 0;
@@ -66,15 +66,14 @@ void		img_to_bmp(void *bmp, t_char *player)
 	}
 }
 
-void		img_bmp(t_char *player)
+void	img_bmp(t_char *player)
 {
-	int	fd;
-	int	size;
+	int		fd;
+	int		size;
 	char	*bmp;
 
-
 	player->save = 0;
-	size = (55 + (player->file->win[0] * player->file->win[1] * 3)); 
+	size = (55 + (player->file->win[0] * player->file->win[1] * 3));
 	if ((fd = open("./save.bmp", O_CREAT | O_RDWR, 0666)) < 2)
 		return ((void)error_flag("Unable to create file save.bmp.\n"));
 	if (!(bmp = malloc(sizeof(char) * size)))

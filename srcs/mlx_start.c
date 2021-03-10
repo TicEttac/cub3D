@@ -59,22 +59,8 @@ t_point	wall_dist(float delta, t_char *player)
 	while (player->file->map[(int)cont.x][(int)cont.y].tile != '1')
 	{
 		hyp = hypotenuse(diff, delta);
-		if (fabs(hyp.x) < fabs(hyp.y))
-		{
-			i = 0;
-			c[0].x = player->x + diff.x;
-			c[0].y = player->y + tan(delta) * diff.x; //y = ... * diff.x is normal
-			cont = check_x(delta, c[0]);
-			diff.x += (diff.x / fabs(diff.x));
-		}
-		else
-		{
-			i = 1;
-			c[1].x = player->x + diff.y / tan(delta);
-			c[1].y = player->y + diff.y;
-			cont = check_y(delta, c[1]);
-			diff.y += (diff.y / fabs(diff.y));
-		}
+		i = one_step((t_tamer){delta, (t_point){player->x, player->y}},
+					&cont, &diff, c);
 		if (player->file->map[(int)c[i].x][(int)c[i].y].tile == '2')
 			player->sprite = true;
 	}
@@ -83,11 +69,11 @@ t_point	wall_dist(float delta, t_char *player)
 
 int		rendering(t_char *player)
 {
-	int	segment;
+	int		segment;
 	float	delta_ray;
 	t_point	cont;
 	void	*img;
-	int	*tab;
+	int		*tab;
 
 	segment = 0;
 	cont = key_mod(player);
@@ -100,11 +86,7 @@ int		rendering(t_char *player)
 	delta_ray = player->dir + (FOV / 2);
 	while (segment <= player->file->win[0])
 	{
-		player->sprite = false;
-		cont = wall_dist(delta_ray, player);
-		apply_ray(cont, player, delta_ray, segment);
-		if (player->sprite == true)
-			sprite(player, cont, segment, delta_ray);
+		sub_rendering(segment, delta_ray, player);
 		segment++;
 		delta_ray -= FOV / player->file->win[0];
 	}

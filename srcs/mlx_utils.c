@@ -12,19 +12,23 @@
 
 #include "cub3D.h"
 
-int     colum_fill(t_char *player, float wall, long seg, t_tex tex)
+int		colum_fill(t_char *player, float wall, long seg, t_tex tex)
 {
-	int     i;
-	int     px;
-	long    col;
-	float   texmarge;
+	int		i;
+	int		px;
+	long	col;
+	float	texmarge;
 
 	i = 0;
 	texmarge = tex.height * (float)(wall - player->file->win[1]) / wall;
-	col = (long)(fmod((!fmod(tex.cnt.x, 1) ? tex.cnt.y : tex.cnt.x) , 1) * tex.width);
+	col = (long)(fmod((!fmod(tex.cnt.x, 1) ? tex.cnt.y
+					: tex.cnt.x), 1) * tex.width);
 	while (i < player->file->win[1] - 1)
 	{
-		player->image.tab[seg] = tex.tab[col + (long)(texmarge / 2 + (tex.height - texmarge) * ((float)seg / player->file->win[0] / player->file->win[1])) * tex.width];
+		player->image.tab[seg] = tex.tab[col + (long)(texmarge / 2
+				+ (tex.height - texmarge) * ((float)seg
+				/ player->file->win[0] / player->file->win[1]))
+				* tex.width];
 		seg += player->file->win[0];
 		i++;
 	}
@@ -39,26 +43,22 @@ int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 	long	x;
 	long	y;
 
-	if ((wall = (player->file->win[1] / (2 * fabs(hyp))) * 2) >= player->file->win[1] - 1)
+	if ((wall = (player->file->win[1] / (2 * fabs(hyp))) * 2)
+					>= player->file->win[1] - 1)
 		return (colum_fill(player, wall, seg, tex));
-	x = seg;
-	while (x < ((player->file->win[1] - wall) / 2) * player->file->win[0])
-	{
-		player->image.tab[x] = player->file->c_color[0];
-		x += player->file->win[0];
-	}
+	x = coloring(player->file->c_color[0], (int[2]){seg, player->file->win[0]},
+		((player->file->win[1] - wall) / 2) * player->file->win[0], player);
 	tmp_i = x / player->file->win[0];
-	y = fmod((!fmod(tex.cnt.x, 1) ? tex.cnt.y : tex.cnt.x) , 1) * tex.width;
+	y = fmod((!fmod(tex.cnt.x, 1) ? tex.cnt.y : tex.cnt.x), 1) * tex.width;
 	while (x < (tmp_i + wall) * player->file->win[0])
 	{
-		player->image.tab[x] = tex.tab[(int)((int)y + (int)((float)(x / player->file->win[0] - tmp_i) * (float)(tex.height / wall)) * tex.width)];
+		player->image.tab[x] = tex.tab[(int)(y + (int)
+			((float)(x / player->file->win[0] - tmp_i)
+			* (float)(tex.height / wall)) * tex.width)];
 		x += player->file->win[0];
 	}
-	while (x < (player->file->win[1] - 1) * player->file->win[0])
-	{
-		player->image.tab[x] = player->file->f_color[0];
-		x += player->file->win[0];
-	}
+	x = coloring(player->file->f_color[0], (int[2]){x, player->file->win[0]},
+			(player->file->win[1] - 1) * player->file->win[0], player);
 	return (0);
 }
 
@@ -90,16 +90,25 @@ int		apply_ray(t_point cnt, t_char *player, float ray, int seg)
 
 void	init_image(t_char *player)
 {
-	int		bpp;
-	int		endian;
+	int	bpp;
+	int	endian;
 
 	bpp = 32;
 	endian = 0;
 	player->image.img = mlx_new_image(player->mlx, player->file->win[0]
 	, player->file->win[1]);
-	//player->image.sl = player->file->win[0];
 	player->image.tab = (int*)mlx_get_data_addr(player->image.img, &bpp,
 	&player->image.sl, &endian);
 	printf("Save stat %d\n", player->save);
 	rendering(player);
+}
+
+void	sub_rendering(int segment, float delta_ray, t_char *player)
+{
+	t_point	cont;
+
+	cont = wall_dist(delta_ray, player);
+	apply_ray(cont, player, delta_ray, segment);
+	if (player->sprite == true && !(player->sprite = false))
+		sprite(player, cont, segment, delta_ray);
 }
