@@ -14,10 +14,6 @@
 
 int		mlx_start(t_char *player)
 {
-	char	*path;
-	int		i;
-
-	i = 0;
 	if (!(player->mlx = mlx_init()))
 		return (error_flag("MLX error : funct. init doesn't work.\n"));
 	if (!(player->win = mlx_new_window(player->mlx,
@@ -72,8 +68,6 @@ int		rendering(t_char *player)
 	int		segment;
 	float	delta_ray;
 	t_point	cont;
-	void	*img;
-	int		*tab;
 
 	segment = 0;
 	cont = key_mod(player);

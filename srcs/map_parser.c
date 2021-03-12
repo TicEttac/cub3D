@@ -65,7 +65,7 @@ int	translate_map(int index, int i_map, char **conf_file, t_map *file)
 	if (i > 0)
 		return (i);
 	else
-		return (1);
+		return (GOOD_OUT);
 }
 
 int	ft_parse_map(char **conf_file, int size, int index, t_map *file)
@@ -77,10 +77,7 @@ int	ft_parse_map(char **conf_file, int size, int index, t_map *file)
 	if ((i = map_parse(size, conf_file, &index)) == BAD_OUT)
 		return (BAD_OUT);
 	if (!(file->map = malloc(sizeof(t_tile *) * (size - index + 1))))
-	{
-		free_dtab(conf_file, size);
-		return (error_flag("Malloc error.\n"));
-	}
+		return (get_tight("Malloc error.\n", conf_file, size));
 	file->mapH = size - index - 2;
 	while (index < size)
 		if (!(file->map[i_map] = malloc(sizeof(t_tile)

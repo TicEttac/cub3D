@@ -66,7 +66,10 @@ int		straw_man(int *index, int *i_map, char **conf_file, t_map *file)
 
 	if ((i = translate_map(*index, *i_map, conf_file, file)) == BAD_OUT)
 		return (BAD_OUT);
-	file->mapW = i - 1 > file->mapW ? i - 1 : file->mapW;
+	if (i - 1 > file->mapW)
+		file->mapW = i - 1;
+	if (i == 1)
+		i--;
 	file->map[*i_map][i].tile = '\0';
 	file->map[*i_map][i].content = '\0';
 	*index += 1;

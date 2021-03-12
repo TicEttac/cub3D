@@ -51,8 +51,6 @@ int		clean_exit(t_char *player)
 
 int		key_hook(int key, t_char *player)
 {
-	t_point	next;
-
 	if (key == RIGHT_KEY)
 		player->keys.right = true;
 	if (key == LEFT_KEY)

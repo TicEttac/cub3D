@@ -206,7 +206,6 @@ int		apply_ray(t_point cnt, t_char *player, float ray, int seg);
 int		column_trace(t_char *player, float hyp, int seg, t_tex tex);
 t_point check_x(float delta, t_point addx);
 t_point check_y(float delta, t_point addy);
-t_point	sprite_dist(float ray, t_point cnt, t_tile **map, t_point player);
 int     colum_fill(t_char *player, float wall, long seg, t_tex tex);
 
 /*-------------------------------< SPRITE >--------------------------------*/
@@ -215,6 +214,7 @@ void	sprite(t_char *player, t_point cont, int seg, float ray);
 float	test_fuck(float ray, t_point cnt, t_point center, float dist);
 int		one_step(t_tamer tamer, t_point *cont, t_point *diff, t_point *c);
 int		sprite_fill(t_char *player, float wall, long seg, t_tex tex);
+t_point	sprite_dist(float ray, t_point cnt, t_tile **map, t_point player);
 
 /*---------------------------------< BMP >---------------------------------*/
 

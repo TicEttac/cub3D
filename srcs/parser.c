@@ -88,7 +88,6 @@ int		ft_parse_infos(char **conf_file, int size, t_map *file)
 	{"S ", &add_sprite}, {"F ", &add_floor}, {"C ", &add_ceiling}};
 	int						i;
 	int						j;
-	int						ret;
 
 	i = 0;
 	while (!(ft_fullfilled(file)))

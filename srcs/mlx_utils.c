@@ -15,7 +15,6 @@
 int		colum_fill(t_char *player, float wall, long seg, t_tex tex)
 {
 	int		i;
-	int		px;
 	long	col;
 	float	texmarge;
 
@@ -39,7 +38,6 @@ int		column_trace(t_char *player, float hyp, int seg, t_tex tex)
 {
 	float	wall;
 	int		tmp_i;
-	int		color;
 	long	x;
 	long	y;
 
@@ -99,7 +97,6 @@ void	init_image(t_char *player)
 	, player->file->win[1]);
 	player->image.tab = (int*)mlx_get_data_addr(player->image.img, &bpp,
 	&player->image.sl, &endian);
-	printf("Save stat %d\n", player->save);
 	rendering(player);
 }
 

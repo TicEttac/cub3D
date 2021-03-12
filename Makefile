@@ -40,7 +40,7 @@ GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 LIB =	lib/libft.a	\
 	lib/libmlx.a	\
 
-CFLAGS = -g3 -I includes -lm -lbsd -lmlx -lXext -lX11 -o #-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -I includes -lm -lbsd -lmlx -lXext -lX11 -o
 
 CC = gcc
 

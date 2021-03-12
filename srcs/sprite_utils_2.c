@@ -3,7 +3,6 @@
 int		sprite_fill(t_char *player, float wall, long seg, t_tex tex)
 {
 	int		i;
-	int		px;
 	long	col;
 	float	texmarge;
 
@@ -55,7 +54,6 @@ int		one_step(t_tamer tamer, t_point *cont, t_point *diff, t_point *c)
 t_point	sprite_dist(float delta, t_point cnt, t_tile **map, t_point player)
 {
 	t_point	diff;
-	t_point	hyp;
 	t_point	c[2];
 	t_point	cont;
 	int		i;

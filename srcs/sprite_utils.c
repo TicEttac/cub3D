@@ -5,7 +5,7 @@ static float	fdist(float x, float y, float to_x, float to_y)
 	return (sqrtf(powf(x - to_x, 2) + powf(y - to_y, 2)));
 }
 
-static int		calc_line(t_char *player, t_point *cnt, int seg, float ray)
+static int		calc_line(t_char *player, t_point *cnt, float ray)
 {
 	float		coef[2];
 	float		vb[2];
@@ -26,7 +26,7 @@ static int		calc_line(t_char *player, t_point *cnt, int seg, float ray)
 					* player->file->sp_path.width));
 }
 
-void			print_sprite(t_sprite sp, t_char *player, int seg, t_tex tex)
+void			print_sprite(t_sprite sp, t_char *player, t_tex tex, long seg)
 {
 	float	wall;
 	int		tmp_i;
@@ -54,7 +54,7 @@ void			print_sprite(t_sprite sp, t_char *player, int seg, t_tex tex)
 	}
 }
 
-static t_point	past_sprite(t_sprite sp, float delta, t_char *player, int seg)
+static t_point	past_sprite(t_sprite sp, float delta)
 {
 	t_point	diff;
 	t_point	hyp;
@@ -97,11 +97,11 @@ void			sprite(t_char *player, t_point cnt, int seg, float ray)
 				|| sp.pos.x < 0 || sp.pos.y < 0 || (player->file->map
 				[(int)sp.pos.x][(int)sp.pos.y].tile == '1'))
 			return ;
-		if ((sp.line = calc_line(player, &sp.pos, seg, ray + M_PI)) == -1)
+		if ((sp.line = calc_line(player, &sp.pos, ray + M_PI)) == -1)
 			return ;
 		player->file->sp_path.cnt = sp.pos;
-		print_sprite(sp, player, seg, player->file->sp_path);
-		sp.pos = past_sprite(sp, ray + M_PI, player, seg);
+		print_sprite(sp, player, player->file->sp_path, (long)seg);
+		sp.pos = past_sprite(sp, ray + M_PI);
 		part = fdist(sp.pos.x, sp.pos.y, wall.x, wall.y);
 		cnt = sp.pos;
 	}

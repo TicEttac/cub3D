@@ -40,11 +40,7 @@ int		print_infos(t_map file)
 	{
 		i = 0;
 		while (file.map[index][i].tile != '\0')
-		{
-			printf("%c", file.map[index][i].tile);
 			i++;
-		}
-		printf("\n");
 		index++;
 	}
 	i = 0;
@@ -63,9 +59,7 @@ int		main(int ac, char **av)
 		return (0);
 	player = set_character(&file);
 	player.save = (ac == 3 && !ft_strcmp(av[2], "--save")) ? 1 : 0;
-	printf("px%f py%f\n", player.x, player.y);
 	index = print_infos(file);
-	printf("mapH=%d, mapW=%d\n", file.mapH, file.mapW);
 	mlx_start(&player);
 	init_image(&player);
 	mlx_hooks(&player);

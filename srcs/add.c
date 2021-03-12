@@ -15,7 +15,7 @@
 int		add_win(char *line, t_map *file, char *id)
 {
 	int		i;
-	char	swich;
+	int		swich;
 
 	(void)id;
 	i = 0;
@@ -54,7 +54,7 @@ char	*add_path(char *line, char *id)
 int		add_floor(char *line, t_map *file, char *id)
 {
 	int		i;
-	char	swich;
+	int		swich;
 
 	i = 0;
 	swich = 0;
@@ -81,7 +81,7 @@ int		add_floor(char *line, t_map *file, char *id)
 int		add_ceiling(char *line, t_map *file, char *id)
 {
 	int		i;
-	char	swich;
+	int		swich;
 
 	i = 0;
 	swich = 0;
