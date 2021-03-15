@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 SRCS =		add.c				\
 		add_redirect.c			\
@@ -42,7 +42,7 @@ LIB =	lib/libft.a	\
 
 CFLAGS = -Wall -Werror -Wextra -I includes -lm -lbsd -lmlx -lXext -lX11 -o
 
-CC = gcc
+CC = clang
 
 all:	$(NAME)
 
