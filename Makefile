@@ -40,7 +40,7 @@ GNL_OBJS = $(addprefix gnl/, $(GNL_SRCS))
 LIB =	lib/libft.a	\
 	lib/libmlx.a	\
 
-CFLAGS = -Wall -Werror -Wextra -I includes -lm -lbsd -lmlx -lXext -lX11 -o
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address -I includes -lm -lbsd -lXext -lX11 -o
 
 CC = clang
 
