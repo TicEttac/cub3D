@@ -6,7 +6,7 @@
 /*   By: nisauvig <nisauvig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 19:25:01 by nisauvig          #+#    #+#             */
-/*   Updated: 2021/03/09 20:09:12 by nisauvig         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:04:10 by nisauvig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	map_parse(int size, char **conf_file, int *index)
 	while (conf_file[*index][i] != '1' && conf_file[*index][i] != '0')
 	{
 		if (*index >= size)
-			return (get_tight("No map in configuration file.\n", conf_file, *index));
+			return (get_tight("No map in config file.\n", conf_file, *index));
 		if (conf_file[*index][i] == '\0')
 		{
 			i = 0;
