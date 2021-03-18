@@ -69,6 +69,7 @@ int		mlx_hooks(t_char *player)
 	ret = 0;
 	ret = mlx_hook(player->win, 2, (1L << 0), &key_hook, player);
 	ret = mlx_hook(player->win, 3, (1L << 1), &key_release, player);
+	ret = mlx_hook(player->win, 33, (1L << 17), &clean_exit, player);
 	mlx_loop_hook(player->mlx, &rendering, player);
 	return (ret);
 }
